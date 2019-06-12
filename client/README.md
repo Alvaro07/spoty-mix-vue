@@ -1,0 +1,1 @@
+# spoty-mix-vue client project
