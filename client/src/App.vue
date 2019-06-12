@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <!-- <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link> -->
+      <router-link to="/about">About</router-link>-->
     </div>
     <router-view/>
   </div>
@@ -27,16 +27,18 @@ export default {
   mounted() {
     const tokens = this.getHashParams();
     console.log(tokens);
-    this.spotify.setAccessToken(tokens.access_token)
+    this.spotify.setAccessToken(tokens.access_token);
 
-    this.spotify.getUser("dani").then(
-      function(data) {
-        console.log("Some information about this user", data.body);
-      },
-      function(err) {
-        console.log("Something went wrong!", err);
-      }
-    );
+    setTimeout(() => {
+      this.spotify.getUserPlaylists("zqfjkpv0ul5t3jm51w4lxl4f1").then(
+        function(data) {
+          console.log("Retrieved playlists", data.body);
+        },
+        function(err) {
+          console.log("Something went wrong!", err);
+        }
+      );
+    }, 1000);
   }
 };
 </script>

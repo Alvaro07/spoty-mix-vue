@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
+
+
+/**
+ * Base styles
+ */
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+  height: 100%;
+  font-family: "Roboto";
+}
+
+input, button, textarea {
+  font-family: "Roboto";
+}
+
+body {
+  min-width: 360px;
+  height: 100%;
+  font-size: 1.4rem;
+  color: $darkGrey;
+}
+
+p {
+  line-height: normal;
+}
