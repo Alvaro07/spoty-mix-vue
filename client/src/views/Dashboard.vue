@@ -1,7 +1,6 @@
 <template>
   <div class="dashboard">
     Dashboard
-    <!-- <v-button text="Login to Spotify" type="buttonLink" href="http://localhost:8888/login"></v-button> -->
   </div>
 </template>
 
