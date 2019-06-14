@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-    Dashboard
+    <span @click="logOut">Salir</span>Dashboard
   </div>
 </template>
 
@@ -12,6 +12,12 @@ export default {
   components: {
     "v-button": Button
   },
+  methods: {
+    logOut() {
+      this.$store.commit("logOut");
+      this.$router.push({ name: "home" });
+    }
+  }
 };
 </script>
 
@@ -23,4 +29,3 @@ export default {
   justify-content: center;
 }
 </style>
-
