@@ -28,6 +28,11 @@ export default {
   },
   mounted() {
     Object.keys(this.getHashParams()).length ? this.$store.commit("addTokens", this.getHashParams()) : null;
+  },
+  beforeRouteEnter: (to, from, next) => {
+    next(vm => {
+      if (vm.$store.state.config.access_token !== null) next({ name: "dashboard" });
+    });
   }
 };
 </script>
