@@ -1,6 +1,12 @@
 <template>
   <div class="dashboard">
-    <span @click="logOut">Salir</span>Dashboard
+    <v-button
+      icon="sign-out-alt"
+      text="Sign out"
+      :onButtonClick="logOut"
+      small
+      extraClass="margin-bottom-10"
+    ></v-button>
   </div>
 </template>
 
@@ -27,5 +33,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 </style>
