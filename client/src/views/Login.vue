@@ -27,7 +27,7 @@ export default {
     }
   },
   mounted() {
-    Object.keys(this.getHashParams()).length ? this.$store.commit("addTokens", this.getHashParams()) : null;
+    Object.keys(this.getHashParams()).length ? this.$store.commit("addConfig", this.getHashParams()) : null;
   },
   beforeRouteEnter: (to, from, next) => {
     next(vm => {
@@ -43,6 +43,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-image: url("../assets/bg-app.gif");
 }
 </style>
 

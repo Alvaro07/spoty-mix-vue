@@ -1,28 +1,34 @@
 <template>
   <div class="dashboard">
-    <v-button
-      icon="sign-out-alt"
-      text="Sign out"
-      :onButtonClick="logOut"
-      small
-      extraClass="margin-bottom-10"
-    ></v-button>
+    <v-header></v-header>
+    <p v-if="loading" class="dashboard__loading">Loading...</p>
   </div>
 </template>
 
 <script>
 import Button from "../components/Button";
+import NavHeader from "../components/NavHeader";
+import { getPlayLists } from "../api/playlists/getPlayLists";
 
 export default {
   name: "dashboard",
-  components: {
-    "v-button": Button
+  data() {
+    return {
+      loading: true
+    };
   },
-  methods: {
-    logOut() {
-      this.$store.commit("logOut");
-      this.$router.push({ name: "home" });
-    }
+  components: {
+    "v-header": NavHeader
+  },
+  created() {
+    getPlayLists(this, this.$store.state.config.user_id, this.$store.state.config.access_token)
+      .then(data => {
+        this.loading = false;
+        this.$store.commit("addPlaylists", data.items);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 };
 </script>
@@ -30,9 +36,13 @@ export default {
 <style lang="scss">
 .dashboard {
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+
+  &__loading {
+    color: white;
+    font-weight: 700;
+    font-size: 1.6rem;
+    padding: 20px;
+    text-align: center;
+  }
 }
 </style>
