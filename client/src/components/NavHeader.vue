@@ -10,7 +10,7 @@
 import Button from "./Button";
 
 export default {
-  name: "NavHeader",
+  name: "nav-header",
   components: {
     "v-button": Button
   },
@@ -29,6 +29,7 @@ export default {
   justify-content: space-between;
 
   position: sticky;
+  top: 0;
 
   padding: 15px;
   background-image: url("../assets/bg-app.gif");
