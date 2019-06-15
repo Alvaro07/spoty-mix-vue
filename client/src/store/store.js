@@ -11,7 +11,11 @@ export default new Vuex.Store({
       access_token: null,
       refresh_token: null
     },
-    playlists: {}
+    playlists: {},
+    mix: {
+      selection: [],
+      result: null
+    }
   },
   mutations: {
     addConfig: (state, data) => {
@@ -25,6 +29,12 @@ export default new Vuex.Store({
     },
     addPlaylists: (state, data) => {
       state.playlists = { ...state.playlists, data };
+    },
+    addListToMix: (state, data) => {
+      state.mix.selection.push(data);
+    },
+    removeListToMix: (state, data) => {
+      state.mix.selection = state.mix.selection.filter(e => e !== data);
     }
   },
   actions: {}

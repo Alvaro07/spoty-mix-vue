@@ -1,9 +1,11 @@
 <template>
   <header class="m-header">
-    <h1 class="m-header__logo">
-      <font-awesome-icon icon="not-equal" class="m-header__logo__icon"/>SpotyMix
-    </h1>
-    <v-button icon="sign-out-alt" text="Sign out" :onButtonClick="logOut" small></v-button>
+    <div class="m-header__wrap">
+      <h1 class="m-header__logo">
+        <font-awesome-icon icon="not-equal" class="m-header__logo__icon"/>SpotyMix
+      </h1>
+      <v-button icon="sign-out-alt" text="Sign out" :onButtonClick="logOut" small></v-button>
+    </div>
   </header>
 </template>
 <script>
@@ -24,16 +26,21 @@ export default {
 </script>
 <style lang="scss">
 .m-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
   position: sticky;
   top: 0;
 
-  padding: 15px;
   background-image: url("../assets/bg-app.gif");
   border-bottom: 5px solid $lightGrey;
+
+  &__wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    max-width: 1400px;
+    padding: 15px;
+    margin: 0 auto;
+  }
 
   &__logo {
     display: flex;

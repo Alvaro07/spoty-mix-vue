@@ -39,7 +39,7 @@ export default {
 
 <style lang="scss">
 .login {
-  height: 100%;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;

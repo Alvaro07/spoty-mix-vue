@@ -12,10 +12,4 @@ export default {
 
 <style lang="scss">
 @import "styles/index";
-
-.app {
-  min-height: 100%;
-  height: 100%;
-  background-color: $darkGrey;
-}
 </style>
