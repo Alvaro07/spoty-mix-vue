@@ -6,9 +6,7 @@
   >
     <img :src="poster" :alt="title" class="list-card__image">
     <h3 class="list-card__title">{{ title }}</h3>
-    <span class="list-card__preview" @click.stop="test">
-      Preview
-    </span>
+    <button class="list-card__preview" @click.stop="previewClick">Preview</button>
   </li>
 </template>
 <script>
@@ -35,8 +33,8 @@ export default {
         this.$store.commit("removeListToMix", this.uri);
       }
     },
-    test(){
-      console.log('pulso')
+    previewClick() {
+      this.$emit('openPreview')
     }
   }
 };
@@ -75,12 +73,14 @@ export default {
     justify-content: center;
     width: 100%;
     padding: 5px;
-    
+    cursor: pointer;
+
     font-weight: 700;
     color: $darkGrey;
+
+    border: none;
     background-color: white;
     border-radius: 3px;
-    
   }
 }
 </style>

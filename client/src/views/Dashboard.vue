@@ -18,9 +18,12 @@
           :title="item.name"
           :poster="item.images[0].url"
           :uri="item.uri"
+          @openPreview="() => openModal('modal-preview')" 
         ></list-card>
       </ul>
     </main>
+
+    <modal v-if="modal.isOpen && modal.name === 'modal-preview'" @close="closeModal" title="Cabecera"></modal>
   </section>
 </template>
 
@@ -28,6 +31,7 @@
 import Button from "../components/Button";
 import NavHeader from "../components/NavHeader";
 import ListCard from "../components/ListCard";
+import Modal from "../components/Modal";
 import { getPlayLists } from "../api/playlists/getPlayLists";
 
 export default {
@@ -35,13 +39,18 @@ export default {
   data() {
     return {
       loading: true,
-      error: null
+      error: null,
+      modal: {
+        name: null,
+        isOpen: false
+      }
     };
   },
   components: {
     "v-header": NavHeader,
     "list-card": ListCard,
-    "v-button": Button
+    "v-button": Button,
+    modal: Modal
   },
   created() {
     getPlayLists(this, this.$store.state.config.user_id, this.$store.state.config.access_token)
@@ -53,6 +62,17 @@ export default {
         this.loading = false;
         this.error = error.message;
       });
+  },
+  methods: {
+    openModal(modal) {
+      this.modal.isOpen = true;
+      this.modal.name = modal;
+      console.log(this.modal.name, this.modal.isOpen)
+    },
+    closeModal() {
+      this.modal.isOpen = false;
+      this.modal.name = null;
+    }
   }
 };
 </script>
