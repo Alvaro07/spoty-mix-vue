@@ -22,15 +22,15 @@ export default {
   props: {
     title: String,
     poster: String,
-    uri: String
+    id: String
   },
   methods: {
     toggleActive() {
       this.isSelected = !this.isSelected;
       if (this.isSelected) {
-        this.$store.commit("addListToMix", this.uri);
+        this.$store.commit("addListToMix", this.id);
       } else {
-        this.$store.commit("removeListToMix", this.uri);
+        this.$store.commit("removeListToMix", this.id);
       }
     },
     previewClick() {
@@ -46,7 +46,7 @@ export default {
 
   position: relative;
   padding: 7px;
-  background-color: $lightGrey;
+  background-color: $grey;
   cursor: pointer;
   transition: 0.3s all ease;
   border-radius: 3px;

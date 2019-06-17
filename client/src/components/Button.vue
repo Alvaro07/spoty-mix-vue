@@ -30,12 +30,11 @@ export default {
     href: String,
     extraClass: String,
     small: Boolean,
-    onButtonClick: Function,
     icon: String
   },
   methods: {
     onClick() {
-      this.onButtonClick();
+      this.$emit('onClick');
     }
   }
 };

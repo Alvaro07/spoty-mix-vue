@@ -34,11 +34,12 @@ export default {
 
   width: 100%;
   height: 100vh;
-  padding: 30px;
+  padding: 20px;
 
   position: fixed;
   left: 0;
   top: 0;
+  z-index: 2;
 
   background-color: rgba($darkGrey, 0.8);
 
@@ -47,6 +48,8 @@ export default {
     width: 100%;
     max-width: 900px;
     max-height: 80vh;
+    display: flex;
+    flex-direction: column;
 
     background-color: white;
     border-radius: 5px;
@@ -73,12 +76,14 @@ export default {
 
   &__header {
     padding: 15px 20px;
-    font-size: 1.6rem;
-    font-weight: 700;
+    font-size: 2rem;
+    font-weight: 300;
   }
 
   &__content {
-    padding: 20px;
+    overflow: auto;
+
+    
   }
 }
 </style>
