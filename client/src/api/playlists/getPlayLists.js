@@ -9,3 +9,15 @@ export function getPlayLists(vueThis, user, token) {
     }, err => reject(err));
   });
 }
+
+// Get playlist's tracks
+
+export function getPlaylistTracks(vueThis, idPlaylist, token) {
+  vueThis.spotify.setAccessToken(token);
+
+  return new Promise((resolve, reject) => {
+    vueThis.spotify.getPlaylist(idPlaylist).then(data => {
+      resolve(data.body)
+    }, err => reject(err));
+  });
+}
