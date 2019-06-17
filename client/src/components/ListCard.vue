@@ -33,7 +33,7 @@ export default {
         this.$store.commit("removeListToMix", this.id);
       }
 
-      if (this.$store.state.mix.selection.length >= 2) {
+      if (this.$store.state.mixSelection.length >= 2) {
         this.$parent.$refs.mixButton.activeButton()
       } else {
         this.$parent.$refs.mixButton.disabledButton()

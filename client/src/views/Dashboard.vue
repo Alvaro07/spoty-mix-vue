@@ -1,17 +1,17 @@
 <template>
-  <section class="dashboard">
+  <section class="page-content">
     <v-header></v-header>
 
-    <p v-if="loading" class="dashboard__loading">Loading...</p>
-    <p v-if="error" class="dashboard__loading">{{ error }}</p>
+    <p v-if="loading" class="page-content__loading">Loading...</p>
+    <p v-if="error" class>{{ error }}</p>
 
-    <main class="dashboard__main" v-if="this.$store.state.playlists.data">
-      <div class="dashboard__header">
-        <h3 class="dashboard__header__title">Select your playlists for mix.</h3>
-        <v-button text="Mix" small icon="music" disabled ref="mixButton"></v-button>
+    <main class="page-content__main" v-if="this.$store.state.playlists.data">
+      <div class="page-content__header">
+        <h3 class="page-content__header__title">Select your playlists for mix.</h3>
+        <v-button text="Mix" small icon="music" disabled ref="mixButton" @onClick="goToMix"></v-button>
       </div>
 
-      <ul class="dashboard__main__list">
+      <ul class="dashboard__list">
         <list-card
           v-for="(item, index) in this.$store.state.playlists.data"
           :key="index"
@@ -67,6 +67,8 @@ export default {
     };
   },
   created() {
+    if (this.$store.state.mixSelection.length !== 0) this.$store.commit("resetPlaylistsSelection");
+
     getPlayLists(this, this.$store.state.config.user_id, this.$store.state.config.access_token)
       .then(data => {
         this.loading = false;
@@ -80,6 +82,7 @@ export default {
   methods: {
     openModalPreview(modal, item) {
       document.getElementsByTagName("body")[0].classList.add("is-hide");
+
       getPlaylistTracks(this, item.id, this.$store.state.config.access_token).then(data => {
         this.prePlaylist = { name: item.name, tracks: data.tracks.items };
         this.modal.isOpen = true;
@@ -91,6 +94,9 @@ export default {
       this.modal.name = null;
       this.prePlaylist = { name: null, tracks: null };
       document.getElementsByTagName("body")[0].classList.remove("is-hide");
+    },
+    goToMix() {
+      this.$router.history.push("mix");
     }
   }
 };
@@ -98,52 +104,17 @@ export default {
 
 <style lang="scss">
 .dashboard {
-  height: 100%;
+  &__list {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
 
-  &__loading {
-    color: white;
-    font-weight: 700;
-    font-size: 1.6rem;
-    padding: 20px;
-    text-align: center;
-  }
-
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-
-    &__title {
-      font-size: 2.4rem;
-      color: white;
-      font-weight: 700;
-    }
-  }
-
-  &__main {
-    --main-padding: 20px;
-
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: var(--main-padding);
-
-    @include mediaTablet() {
-      --main-padding: 30px 20px;
+    @include mediaTablet {
+      grid-template-columns: repeat(4, 1fr);
     }
 
-    &__list {
-      display: grid;
-      grid-gap: 10px;
-      grid-template-columns: repeat(2, 1fr);
-
-      @include mediaTablet {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      @include mediaDesktop {
-        grid-template-columns: repeat(6, 1fr);
-      }
+    @include mediaDesktop {
+      grid-template-columns: repeat(6, 1fr);
     }
   }
 }

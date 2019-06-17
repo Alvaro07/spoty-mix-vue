@@ -27,7 +27,6 @@ export default {
       required: true
     }
   },
-
   computed: {
     poster() {
       return this.data.album.images[0].url;
@@ -64,7 +63,7 @@ export default {
   }
 
   &:hover {
-    --bg-color: #{rgba($darkGrey, .9)};
+    --bg-color: #{rgba($darkGrey, 0.9)};
     --actions-bg-color: #{$darkGrey};
     --actions-border-color: #{$darkGrey};
   }

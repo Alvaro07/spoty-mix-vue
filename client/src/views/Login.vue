@@ -12,7 +12,12 @@
       Access with your spotify user and mix your playlist easily, choose your two ore more
       favorite lists and mix them in one click!
     </p>
-    <v-button text="Login to Spotify" type="buttonLink" href="http://localhost:8888/login"></v-button>
+    <v-button
+      text="Login with your Spotify"
+      type="buttonLink"
+      href="http://localhost:8888/login"
+      
+    ></v-button>
   </div>
 </template>
 
@@ -60,18 +65,26 @@ export default {
   text-align: center;
 
   &__logo {
+    --logo-font-size: 4rem;
+    --logo-icon-size: 5rem;
+
     display: flex;
     align-items: center;
 
     color: white;
-    font-size: 4rem;
+    font-size: var(--logo-font-size);
     font-weight: 900;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 
     &__icon {
       color: $pink;
       margin-right: 15px;
-      font-size: 5rem;
+      font-size: var(--logo-icon-size);
+    }
+
+    @include mediaDesktop {
+      --logo-font-size: 5rem;
+      --logo-icon-size: 5.5rem;
     }
   }
 
@@ -81,9 +94,13 @@ export default {
     font-size: var(--slogan-size);
     color: white;
     font-weight: 900;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     @include mediaTablet {
+      --slogan-size: 2.6rem;
+    }
+
+    @include mediaDesktop {
       --slogan-size: 3rem;
     }
 
@@ -100,7 +117,7 @@ export default {
     font-weight: 300;
     line-height: 1.3;
 
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     padding: 0 20px;
 
     @include mediaTablet {

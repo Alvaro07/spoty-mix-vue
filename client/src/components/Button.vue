@@ -3,7 +3,7 @@
     v-if="type === 'buttonLink'"
     :href="href"
     class="c-button"
-    :class="[{'c-button--small ': small}, {'c-button--disabled ': isDisabled}, extraClass]"
+    :class="[{'c-button--small ': small}, {'c-button--disabled ': isDisabled}, variantClass, extraClass]"
   >
     <font-awesome-icon v-if="icon" :icon="icon" class="c-button__icon"/>
     <span v-if="text" class="c-button__text">{{ text }}</span>
@@ -13,7 +13,7 @@
     v-else
     class="c-button"
     @click.prevent="onButtonClick"
-    :class="[{'c-button--small ': small}, {'c-button--disabled ': isDisabled}, extraClass]"
+    :class="[{'c-button--small ': small}, {'c-button--disabled ': isDisabled}, variantClass, extraClass]"
   >
     <font-awesome-icon v-if="icon" :icon="icon" class="c-button__icon"/>
     <span v-if="text" class="c-button__text">{{ text }}</span>
@@ -31,22 +31,30 @@ export default {
     icon: String,
     extraClass: String,
     small: Boolean,
-    disabled: Boolean
+    disabled: Boolean,
+    variant: String
   },
-  data(){
+  data() {
     return {
       isDisabled: this.disabled
-    }
+    };
   },
   methods: {
     onButtonClick() {
       this.$emit("onClick");
     },
-    activeButton(){
-      this.isDisabled = false
+    activeButton() {
+      this.isDisabled = false;
     },
-    disabledButton(){
-      this.isDisabled = true
+    disabledButton() {
+      this.isDisabled = true;
+    }
+  },
+  computed: {
+    variantClass() {
+      if (this.variant === "green") {
+        return "c-button--green";
+      }
     }
   }
 };
@@ -88,6 +96,16 @@ export default {
     --font-text: 1.4rem;
     --icon-size: 1.6rem;
     --icon-space: 10px;
+  }
+
+  &--green {
+    --bg-color: #{$green};
+    --border-color: #{$lightGreen};
+
+    &:hover {
+      --bg-color: #{$lightGreen};
+      --border-color: #{$lightGreen};
+    }
   }
 
   &--disabled {
