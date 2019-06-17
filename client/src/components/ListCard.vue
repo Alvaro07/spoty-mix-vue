@@ -32,9 +32,15 @@ export default {
       } else {
         this.$store.commit("removeListToMix", this.id);
       }
+
+      if (this.$store.state.mix.selection.length >= 2) {
+        this.$parent.$refs.mixButton.activeButton()
+      } else {
+        this.$parent.$refs.mixButton.disabledButton()
+      }
     },
     previewClick() {
-      this.$emit('openPreview')
+      this.$emit("openPreview");
     }
   }
 };

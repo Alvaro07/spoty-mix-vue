@@ -46,7 +46,7 @@ export default {
   &__wrap {
     position: relative;
     width: 100%;
-    max-width: 900px;
+    max-width: 640px;
     max-height: 80vh;
     display: flex;
     flex-direction: column;
@@ -76,14 +76,14 @@ export default {
 
   &__header {
     padding: 15px 20px;
-    font-size: 2rem;
-    font-weight: 300;
+    &__title {
+      font-size: 2rem;
+      font-weight: 400;
+    }
   }
 
   &__content {
     overflow: auto;
-
-    
   }
 }
 </style>

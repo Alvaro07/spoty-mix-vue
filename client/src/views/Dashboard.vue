@@ -8,7 +8,7 @@
     <main class="dashboard__main" v-if="this.$store.state.playlists.data">
       <div class="dashboard__header">
         <h3 class="dashboard__header__title">Select your playlists for mix.</h3>
-        <v-button text="Mix" small icon="music"></v-button>
+        <v-button text="Mix" small icon="music" disabled ref="mixButton"></v-button>
       </div>
 
       <ul class="dashboard__main__list">
@@ -79,8 +79,7 @@ export default {
   },
   methods: {
     openModalPreview(modal, item) {
-      document.getElementsByTagName('body')[0].classList.add('is-hide');
-
+      document.getElementsByTagName("body")[0].classList.add("is-hide");
       getPlaylistTracks(this, item.id, this.$store.state.config.access_token).then(data => {
         this.prePlaylist = { name: item.name, tracks: data.tracks.items };
         this.modal.isOpen = true;
@@ -92,7 +91,7 @@ export default {
       this.modal.isOpen = false;
       this.modal.name = null;
       this.prePlaylist = { name: null, tracks: null };
-      document.getElementsByTagName('body')[0].classList.remove('is-hide');
+      document.getElementsByTagName("body")[0].classList.remove("is-hide");
     }
   }
 };

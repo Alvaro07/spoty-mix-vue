@@ -21,7 +21,7 @@ export default {
   background-color: rgba($grey, 0.5);
 }
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 7px;
   background-color: rgba($grey, 0.5);
 }
 ::-webkit-scrollbar-thumb {

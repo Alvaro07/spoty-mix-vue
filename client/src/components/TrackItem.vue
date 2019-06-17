@@ -10,11 +10,11 @@
         <span>{{ album }}</span>
       </h4>
     </div>
-    <div class="c-track-item__actions">
+    <!-- <div class="c-track-item__actions">
       <button class="c-track-item__actions__play">
         <font-awesome-icon icon="play"/>
       </button>
-    </div>
+    </div>-->
   </li>
 </template>
 
@@ -27,7 +27,7 @@ export default {
       required: true
     }
   },
-  
+
   computed: {
     poster() {
       return this.data.album.images[0].url;
@@ -53,9 +53,15 @@ export default {
 
   display: flex;
   background-color: var(--bg-color);
-  border-bottom: 1px solid $lightGrey;
   cursor: pointer;
   transition: 0.1s all ease;
+
+  &:not(:first-child) {
+    border-top: 1px solid #100e0e;
+  }
+  &:not(:last-child) {
+    border-bottom: 1px solid $lightGrey;
+  }
 
   &:hover {
     --bg-color: #{$darkGrey};
@@ -70,7 +76,6 @@ export default {
     padding: 5px;
 
     img {
-      // border-radius: 50%;
       max-width: 40px;
     }
   }
@@ -82,13 +87,13 @@ export default {
     border-right: 1px solid $lightGrey;
 
     &__artist {
-      font-size: 1.2rem;
-      font-weight: 400;
-      padding-bottom: 5px;
+      font-size: 1.3rem;
+      font-weight: 500;
+      padding-bottom: 3px;
     }
 
     &__track {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 300;
     }
   }

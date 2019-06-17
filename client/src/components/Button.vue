@@ -3,7 +3,7 @@
     v-if="type === 'buttonLink'"
     :href="href"
     class="c-button"
-    :class="[{'c-button--small ': small}, extraClass]"
+    :class="[{'c-button--small ': small}, {'c-button--disabled ': isDisabled}, extraClass]"
   >
     <font-awesome-icon v-if="icon" :icon="icon" class="c-button__icon"/>
     <span v-if="text" class="c-button__text">{{ text }}</span>
@@ -12,8 +12,8 @@
   <button
     v-else
     class="c-button"
-    @click.prevent="onClick"
-    :class="[{'c-button--small ': small}, extraClass]"
+    @click.prevent="onButtonClick"
+    :class="[{'c-button--small ': small}, {'c-button--disabled ': isDisabled}, extraClass]"
   >
     <font-awesome-icon v-if="icon" :icon="icon" class="c-button__icon"/>
     <span v-if="text" class="c-button__text">{{ text }}</span>
@@ -28,13 +28,25 @@ export default {
     text: String,
     type: String,
     href: String,
+    icon: String,
     extraClass: String,
     small: Boolean,
-    icon: String
+    disabled: Boolean
+  },
+  data(){
+    return {
+      isDisabled: this.disabled
+    }
   },
   methods: {
-    onClick() {
-      this.$emit('onClick');
+    onButtonClick() {
+      this.$emit("onClick");
+    },
+    activeButton(){
+      this.isDisabled = false
+    },
+    disabledButton(){
+      this.isDisabled = true
     }
   }
 };
@@ -47,6 +59,7 @@ export default {
   --border-color: #{$darkPink};
   --padding-size: 15px 30px;
   --font-text: 1.6rem;
+  --font-color: white;
   --icon-size: 2rem;
   --icon-space: 15px;
 
@@ -62,7 +75,7 @@ export default {
 
   font-size: var(--font-text);
   font-weight: 700;
-  color: white;
+  color: var(--font-color);
   text-decoration: none;
 
   &:hover {
@@ -75,6 +88,13 @@ export default {
     --font-text: 1.4rem;
     --icon-size: 1.6rem;
     --icon-space: 10px;
+  }
+
+  &--disabled {
+    pointer-events: none;
+    --bg-color: #ccc;
+    --border-color: #ccc;
+    --font-color: #{rgba($grey, 0.6)};
   }
 
   &__icon {
