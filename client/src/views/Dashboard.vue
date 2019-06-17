@@ -87,7 +87,6 @@ export default {
       });
     },
     closeModal() {
-      
       this.modal.isOpen = false;
       this.modal.name = null;
       this.prePlaylist = { name: null, tracks: null };

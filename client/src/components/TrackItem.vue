@@ -64,7 +64,7 @@ export default {
   }
 
   &:hover {
-    --bg-color: #{$darkGrey};
+    --bg-color: #{rgba($darkGrey, .9)};
     --actions-bg-color: #{$darkGrey};
     --actions-border-color: #{$darkGrey};
   }

@@ -63,7 +63,7 @@ export default {
   --icon-size: 2rem;
   --icon-space: 15px;
 
-  display: flex;
+  display: inline-flex;
   align-items: center;
 
   cursor: pointer;
@@ -94,7 +94,7 @@ export default {
     pointer-events: none;
     --bg-color: #ccc;
     --border-color: #ccc;
-    --font-color: #{rgba($grey, 0.6)};
+    --font-color: #{rgba($grey, 0.3)};
   }
 
   &__icon {
