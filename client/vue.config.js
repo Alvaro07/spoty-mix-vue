@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: "https://alvaro07.github.io/spoty-mix-vue",
   css: {
     loaderOptions: {
       sass: {

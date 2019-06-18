@@ -15,9 +15,11 @@
     <v-button
       text="Login with your Spotify"
       type="buttonLink"
-      href="http://localhost:8888/login"
+      href="https://spotymix-auth-server.herokuapp.com/login"
       big
     ></v-button>
+      <!-- href="http://localhost:8888/login" -->
+
   </div>
 </template>
 
