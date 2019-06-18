@@ -122,7 +122,7 @@ export default {
 
       createMixList(this, this.$store.state.config.user_id, this.mix.name, uriTracks, this.$store.state.config.access_token).then(() => {
         this.closeModal();
-        this.$router.history.push("/dashboard");
+        this.$router.history.push("dashboard");
       });
     }
   }
