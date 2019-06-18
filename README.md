@@ -9,5 +9,11 @@ Link: [alvaro07.github.io/spoty-mix-vue/](https://alvaro07.github.io/spoty-mix-v
 ---
 
 ![alt text](login.jpg "login")
+
+---
+
 ![alt text](dashboard.jpg "dashboard")
-![alt text](mix.jpg "Trollelo")
+
+---
+
+![alt text](mix.jpg "mix")
