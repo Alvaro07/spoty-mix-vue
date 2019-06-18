@@ -49,6 +49,7 @@ export default {
 
   --actions-bg-color: #1b1d20;
   --actions-border-color: #100e0e;
+  --actions-poster-border-color: #{$lightGrey};
 
   display: flex;
   background-color: var(--bg-color);
@@ -63,19 +64,22 @@ export default {
   }
 
   &:hover {
-    --bg-color: #{rgba($darkGrey, 0.9)};
+    --bg-color: #{rgba($lightGrey, .4)};
     --actions-bg-color: #{$darkGrey};
     --actions-border-color: #{$darkGrey};
+    --actions-poster-border-color: #{$pink};
   }
 
   &__poster {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5px;
 
     img {
       max-width: 40px;
+      padding: 2px;
+      transition: .1s all ease;
+      border:1px solid var(--actions-poster-border-color);
     }
   }
 
@@ -83,7 +87,7 @@ export default {
     flex: 1;
     padding: 10px;
     color: white;
-    border-right: 1px solid $lightGrey;
+    // border-right: 1px solid $lightGrey;
 
     &__artist {
       font-size: 1.3rem;

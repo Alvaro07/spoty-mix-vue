@@ -5,7 +5,7 @@
         <font-awesome-icon icon="not-equal" class="m-header__logo__icon"/>SpotyMix
       </h1>
       
-      <v-button icon="sign-out-alt" text="Sign out" @onClick="logOut" small></v-button>
+      <v-button icon="sign-out-alt" text="Sign out" @onClick="logOut" ></v-button>
     </div>
   </header>
 </template>

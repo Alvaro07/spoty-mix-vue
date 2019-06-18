@@ -16,7 +16,7 @@
       text="Login with your Spotify"
       type="buttonLink"
       href="http://localhost:8888/login"
-      
+      big
     ></v-button>
   </div>
 </template>

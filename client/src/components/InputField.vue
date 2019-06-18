@@ -28,8 +28,8 @@ export default {
     getData(data) {
       this.$emit("input", data);
     },
-    onInputKeyUp(e){
-      if (this.onKeyUp !== null) this.$emit('onKeyUp', e.target.value); 
+    onInputKeyUp(e) {
+      if (this.onKeyUp !== null) this.$emit("onKeyUp", e.target.value);
     }
   },
   updated() {
@@ -46,7 +46,7 @@ export default {
   display: block;
   width: 100%;
 
-  padding: 15px;
+  padding: 12px;
   border-radius: 4px;
   border: 1px solid rgba($grey, 0.3);
 

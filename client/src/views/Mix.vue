@@ -11,14 +11,12 @@
         <div>
           <v-button
             text="Return"
-            small
             icon="reply"
             extraClass="margin-right-10"
             @onClick="goToDashboard"
           ></v-button>
           <v-button
             text="Create playlist"
-            small
             icon="volume-up"
             variant="green"
             @onClick="() => openCreateModal('modal-create')"
@@ -26,18 +24,21 @@
         </div>
       </div>
 
-      <ul>
+      <ul class="mix__list">
         <track-item v-for="(item, index) in this.mix.tracks" :key="index" :data="item.track"></track-item>
       </ul>
 
-      <Modal v-if="modal.isOpen && modal.name === 'modal-create'" @close="closeModal">
+      <Modal
+        v-if="modal.isOpen && modal.name === 'modal-create'"
+        @close="closeModal"
+        title="Set a name for your playlist and create it!"
+      >
         <div class="mix__modal-create">
-          <h4 class="mix__modal-create__title">Set a name for your playlist and create it!</h4>
-          <form class="mix__modal-create__field">
+          <form class="mix__modal-create__form">
             <InputField
               placeholder="Playlist name"
               @onKeyUp="e => checkCreateButton(e)"
-              extraClass="margin-bottom-20"
+              extraClass="margin-right-20"
             ></InputField>
             <v-button
               text="Mixing!"
@@ -46,6 +47,7 @@
               disabled
               ref="createButton"
               type="submit"
+              @onClick="mixing"
             ></v-button>
           </form>
         </div>
@@ -59,7 +61,7 @@ import NavHeader from "../components/NavHeader";
 import Modal from "../components/Modal";
 import TrackItem from "../components/TrackItem";
 import InputField from "../components/InputField";
-import { getPlayLists, getPlaylistTracks } from "../api/playlists/getPlayLists";
+import { getPlayLists, getPlaylistTracks, createMixList, addTracksToMixList } from "../api/playlists";
 
 export default {
   name: "mix",
@@ -79,6 +81,7 @@ export default {
         isOpen: false
       },
       mix: {
+        name: null,
         tracks: null
       }
     };
@@ -110,28 +113,36 @@ export default {
       this.modal.name = null;
       document.getElementsByTagName("body")[0].classList.remove("is-hide");
     },
-    checkCreateButton(e) {
-      e.length > 0 ? this.$refs.createButton.activeButton() : this.$refs.createButton.disabledButton();
+    checkCreateButton(name) {
+      this.mix.name = name;
+      name.length > 0 ? this.$refs.createButton.activeButton() : this.$refs.createButton.disabledButton();
+    },
+    mixing() {
+      let uriTracks = this.mix.tracks.map(e => e.track.uri);
+
+      createMixList(this, this.$store.state.config.user_id, this.mix.name, uriTracks, this.$store.state.config.access_token).then(() => {
+        this.closeModal();
+        this.$router.history.push("/dashboard");
+      });
     }
   }
 };
 </script>
 <style lang="scss">
 .mix {
+  &__list {
+    border-top: 3px solid $darkPink;
+    border-bottom: 3px solid black;
+  }
+
   &__modal-create {
     padding: 30px 20px 20px 20px;
     text-align: center;
     border-top: 1px solid rgba($lightGrey, 0.2);
 
-    &__title {
-      font-weight: 400;
-      font-size: 1.6rem;
-      margin-bottom: 15px;
-    }
-
-    &__field {
-      max-width: 400px;
-      margin: 0 auto;
+    &__form {
+      display: flex;
+      align-items: center;
     }
   }
 }

@@ -8,7 +8,7 @@
     <main class="page-content__main" v-if="this.$store.state.playlists.data">
       <div class="page-content__header">
         <h3 class="page-content__header__title">Select your playlists for mix.</h3>
-        <v-button text="Mix" small icon="music" disabled ref="mixButton" @onClick="goToMix"></v-button>
+        <v-button text="Mix" icon="music" disabled ref="mixButton" @onClick="goToMix"></v-button>
       </div>
 
       <ul class="dashboard__list">
@@ -41,7 +41,7 @@ import NavHeader from "../components/NavHeader";
 import ListCard from "../components/ListCard";
 import Modal from "../components/Modal";
 import TrackItem from "../components/TrackItem";
-import { getPlayLists, getPlaylistTracks } from "../api/playlists/getPlayLists";
+import { getPlayLists, getPlaylistTracks } from "../api/playlists";
 
 export default {
   name: "dashboard",
