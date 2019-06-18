@@ -62,6 +62,7 @@ export default {
 
 
 <style lang="scss">
+
 .c-button {
   --bg-color: #{$pink};
   --border-color: #{$darkPink};
@@ -91,6 +92,18 @@ export default {
     --border-color: #{$pink};
   }
 
+  &__icon {
+    font-size: var(--icon-size);
+
+    & + .c-button__text {
+      margin-left: var(--icon-space);
+    }
+  }
+
+  /**
+  * Modifiers
+  */
+
   &--big {
     --padding-size: 15px 30px;
     --font-text: 1.6rem;
@@ -100,7 +113,7 @@ export default {
 
   &--green {
     --bg-color: #{$green};
-    --border-color: #{rgba($darkGreen, .3)};
+    --border-color: #{rgba($darkGreen, 0.3)};
 
     &:hover {
       --bg-color: #{$darkGreen};
@@ -113,14 +126,6 @@ export default {
     --bg-color: #ccc;
     --border-color: #ccc;
     --font-color: #{rgba($grey, 0.3)};
-  }
-
-  &__icon {
-    font-size: var(--icon-size);
-
-    & + .c-button__text {
-      margin-left: var(--icon-space);
-    }
   }
 }
 </style>
