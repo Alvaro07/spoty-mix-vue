@@ -1,7 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Login from "./views/Login.vue";
-import Dashboard from "./views/Dashboard.vue";
+import Login from "./views/Login";
+import Dashboard from "./views/Dashboard";
+import Mix from "./views/Mix";
 import store from "./store/store";
 
 Vue.use(Router);
@@ -27,6 +28,14 @@ const router = new Router({
       path: "/dashboard",
       name: "dashboard",
       component: Dashboard,
+      beforeEnter: (to, from, next) => {
+        store.state.auth ? next() : next({ name: "login" });
+      }
+    },
+    {
+      path: "/mix",
+      name: "mix",
+      component: Mix,
       beforeEnter: (to, from, next) => {
         store.state.auth ? next() : next({ name: "login" });
       }

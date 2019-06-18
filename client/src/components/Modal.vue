@@ -84,6 +84,7 @@ export default {
 
   &__content {
     overflow: auto;
+    border-bottom: 3px solid $darkPink;
   }
 }
 </style>

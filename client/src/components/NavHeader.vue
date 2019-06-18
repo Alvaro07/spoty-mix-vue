@@ -4,7 +4,8 @@
       <h1 class="m-header__logo">
         <font-awesome-icon icon="not-equal" class="m-header__logo__icon"/>SpotyMix
       </h1>
-      <v-button icon="sign-out-alt" text="Sign out" @onClick="logOut" small></v-button>
+      
+      <v-button icon="sign-out-alt" text="Sign out" @onClick="logOut" ></v-button>
     </div>
   </header>
 </template>
@@ -27,7 +28,7 @@ export default {
 <style lang="scss">
 .m-header {
   position: sticky;
-  top: 0; 
+  top: 0;
   z-index: 1;
 
   background-image: url("../assets/bg-app.gif");

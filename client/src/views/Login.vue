@@ -1,6 +1,23 @@
 <template>
   <div class="login">
-    <v-button text="Login to Spotify" type="buttonLink" href="http://localhost:8888/login"></v-button>
+    <h1 class="login__logo">
+      <font-awesome-icon icon="not-equal" class="login__logo__icon"/>SpotyMix
+    </h1>
+    <h2 class="login__slogan">
+      Your best
+      spotify
+      <span>mixer</span> playlist
+    </h2>
+    <p class="login__description">
+      Access with your spotify user and mix your playlist easily, choose your two ore more
+      favorite lists and mix them in one click!
+    </p>
+    <v-button
+      text="Login with your Spotify"
+      type="buttonLink"
+      href="http://localhost:8888/login"
+      big
+    ></v-button>
   </div>
 </template>
 
@@ -41,9 +58,73 @@ export default {
 .login {
   height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-image: url("../assets/bg-app.gif");
+  text-align: center;
+
+  &__logo {
+    --logo-font-size: 4rem;
+    --logo-icon-size: 5rem;
+
+    display: flex;
+    align-items: center;
+
+    color: white;
+    font-size: var(--logo-font-size);
+    font-weight: 900;
+    margin-bottom: 30px;
+
+    &__icon {
+      color: $pink;
+      margin-right: 15px;
+      font-size: var(--logo-icon-size);
+    }
+
+    @include mediaDesktop {
+      --logo-font-size: 5rem;
+      --logo-icon-size: 5.5rem;
+    }
+  }
+
+  &__slogan {
+    --slogan-size: 2.4rem;
+
+    font-size: var(--slogan-size);
+    color: white;
+    font-weight: 900;
+    margin-bottom: 10px;
+
+    @include mediaTablet {
+      --slogan-size: 2.6rem;
+    }
+
+    @include mediaDesktop {
+      --slogan-size: 3rem;
+    }
+
+    span {
+      color: $pink;
+    }
+  }
+
+  &__description {
+    --desc-size: 1.4rem;
+
+    font-size: var(--desc-size);
+    color: white;
+    font-weight: 300;
+    line-height: 1.3;
+
+    margin-bottom: 30px;
+    padding: 0 20px;
+
+    @include mediaTablet {
+      --desc-size: 1.6rem;
+      max-width: 600px;
+    }
+  }
 }
 </style>
 

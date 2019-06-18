@@ -3,7 +3,7 @@
     v-if="type === 'buttonLink'"
     :href="href"
     class="c-button"
-    :class="[{'c-button--small ': small}, {'c-button--disabled ': isDisabled}, extraClass]"
+    :class="[{'c-button--big ': big}, {'c-button--disabled ': isDisabled}, variantClass, extraClass]"
   >
     <font-awesome-icon v-if="icon" :icon="icon" class="c-button__icon"/>
     <span v-if="text" class="c-button__text">{{ text }}</span>
@@ -13,7 +13,7 @@
     v-else
     class="c-button"
     @click.prevent="onButtonClick"
-    :class="[{'c-button--small ': small}, {'c-button--disabled ': isDisabled}, extraClass]"
+    :class="[{'c-button--big ': big}, {'c-button--disabled ': isDisabled}, variantClass, extraClass]"
   >
     <font-awesome-icon v-if="icon" :icon="icon" class="c-button__icon"/>
     <span v-if="text" class="c-button__text">{{ text }}</span>
@@ -30,23 +30,31 @@ export default {
     href: String,
     icon: String,
     extraClass: String,
-    small: Boolean,
-    disabled: Boolean
+    big: Boolean,
+    disabled: Boolean,
+    variant: String
   },
-  data(){
+  data() {
     return {
       isDisabled: this.disabled
-    }
+    };
   },
   methods: {
     onButtonClick() {
       this.$emit("onClick");
     },
-    activeButton(){
-      this.isDisabled = false
+    activeButton() {
+      this.isDisabled = false;
     },
-    disabledButton(){
-      this.isDisabled = true
+    disabledButton() {
+      this.isDisabled = true;
+    }
+  },
+  computed: {
+    variantClass() {
+      if (this.variant === "green") {
+        return "c-button--green";
+      }
     }
   }
 };
@@ -57,13 +65,13 @@ export default {
 .c-button {
   --bg-color: #{$pink};
   --border-color: #{$darkPink};
-  --padding-size: 15px 30px;
-  --font-text: 1.6rem;
   --font-color: white;
-  --icon-size: 2rem;
-  --icon-space: 15px;
+  --padding-size: 12px 15px;
+  --font-text: 1.4rem;
+  --icon-size: 1.6rem;
+  --icon-space: 10px;
 
-  display: flex;
+  display: inline-flex;
   align-items: center;
 
   cursor: pointer;
@@ -83,18 +91,28 @@ export default {
     --border-color: #{$pink};
   }
 
-  &--small {
-    --padding-size: 10px 15px;
-    --font-text: 1.4rem;
-    --icon-size: 1.6rem;
-    --icon-space: 10px;
+  &--big {
+    --padding-size: 15px 30px;
+    --font-text: 1.6rem;
+    --icon-size: 2rem;
+    --icon-space: 15px;
+  }
+
+  &--green {
+    --bg-color: #{$green};
+    --border-color: #{rgba($darkGreen, .3)};
+
+    &:hover {
+      --bg-color: #{$darkGreen};
+      --border-color: #{$darkGreen};
+    }
   }
 
   &--disabled {
     pointer-events: none;
     --bg-color: #ccc;
     --border-color: #ccc;
-    --font-color: #{rgba($grey, 0.6)};
+    --font-color: #{rgba($grey, 0.3)};
   }
 
   &__icon {
