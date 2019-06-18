@@ -7,9 +7,11 @@ import store from "./store/store";
 
 Vue.use(Router);
 
+const prodRoute = "/spoty-mix-vue/"
+
 const router = new Router({
   mode: "history",
-  // base: process.env.BASE_URL,
+  base: "/spoty-mix-vue/",
   routes: [
     {
       path: "/",
