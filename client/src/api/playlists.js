@@ -32,6 +32,10 @@ export function getPlayLists(vueThis, user, token) {
 export async function getPlaylistTracks(vueThis, playlists, token) {
   vueThis.spotify.setAccessToken(token);
 
+  if (!Array.isArray(playlists)) {
+    playlists = Array(playlists);
+  }
+
   let trackList = [];
   for (const key in playlists) {
     await vueThis.spotify

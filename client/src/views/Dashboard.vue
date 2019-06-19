@@ -30,7 +30,7 @@
       :title="this.prePlaylist.name"
     >
       <ul v-if="prePlaylist.tracks">
-        <track-item v-for="(item, index) in prePlaylist.tracks" :key="index" :data="item.track"></track-item>
+        <track-item v-for="(item, index) in prePlaylist.tracks" :key="index" :data="item"></track-item>
       </ul>
     </Modal>
   </section>
@@ -87,9 +87,10 @@ export default {
       document.getElementsByTagName("body")[0].classList.add("is-hide");
 
       getPlaylistTracks(this, item.id, this.config.access_token).then(data => {
-        this.prePlaylist = { name: item.name, tracks: data.tracks.items };
+        this.prePlaylist = { name: item.name, tracks: data };
         this.modal.isOpen = true;
         this.modal.name = modal;
+        console.log(this.prePlaylist);
       });
     },
     closeModal() {

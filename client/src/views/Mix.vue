@@ -5,7 +5,7 @@
     <p v-if="loading" class="page-content__loading">Loading...</p>
     <p v-if="error">{{ error }}</p>
 
-    <main class="page-content__main" v-if="this.tracks.length > 0">
+    <main class="page-content__main" v-if="!this.loading">
       <div class="mix__header">
         <h3 class="mix__header__title">Your new mixlist</h3>
         <div class="mix__header__actions">
@@ -30,7 +30,7 @@
         v-if="this.tracks.length >= 100"
       >The maximum number of tracks for a playlist is 100, please delete some tracks</div>
 
-      <ul class="mix__list">
+      <ul class="mix__list" v-if="!this.loading">
         <track-item v-for="(item, index) in this.tracks" :key="index" :data="item"></track-item>
       </ul>
 
@@ -92,19 +92,12 @@ export default {
   },
   mounted() {
     let finalList = [];
+    this.loading = true;
 
     getPlaylistTracks(this, this.mixSelection, this.config.access_token).then(data => {
       this.$store.commit("addTracks", data);
       this.loading = false;
     });
-
-    if (this.tracks.length !== 0) {
-      this.loading = false;
-    } else {
-      this.loading = true;
-    }
-
-
   },
   updated() {
     if (this.tracks.length >= 100) {
