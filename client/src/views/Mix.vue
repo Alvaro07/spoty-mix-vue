@@ -5,7 +5,7 @@
     <p v-if="loading" class="page-content__loading">Loading...</p>
     <p v-if="error">{{ error }}</p>
 
-    <main class="page-content__main" v-if="this.mix.tracks">
+    <main class="page-content__main" v-if="this.tracks">
       <div class="mix__header">
         <h3 class="mix__header__title">Your new mixlist</h3>
         <div class="mix__header__actions">
@@ -20,12 +20,18 @@
             icon="volume-up"
             variant="green"
             @onClick="() => openCreateModal('modal-create')"
+            ref="createButton"
           ></v-button>
         </div>
       </div>
 
+      <div
+        class="mix__alert"
+        v-if="this.tracks.length >= 100"
+      >The maximum number of tracks for a playlist is 100, please delete some tracks</div>
+
       <ul class="mix__list">
-        <track-item v-for="(item, index) in this.mix.tracks" :key="index" :data="item.track"></track-item>
+        <track-item v-for="(item, index) in this.tracks" :key="index" :data="item"></track-item>
       </ul>
 
       <Modal
@@ -81,26 +87,28 @@ export default {
         name: null,
         isOpen: false
       },
-      mix: {
-        name: null,
-        tracks: null
-      }
+      mixName: null
     };
   },
-  mounted() {
+  created() {
     let finalList = [];
-    this.mix.tracks = [];
 
     this.mixSelection.forEach(element => {
       getPlaylistTracks(this, element, this.config.access_token).then(data => {
-        finalList = finalList.concat(data.tracks.items);
-        this.mix.tracks = finalList;
+        finalList = finalList.concat(data.map(e => e.track));
+        this.$store.commit("addTracks", finalList);
+        this.loading = false;
       });
     });
 
-    // this.$store.commit("addTracks", finalList);
-
-    this.loading = false;
+    if (this.tracks.length !== 0) this.loading = false;
+  },
+  updated() {
+    if (this.tracks.length >= 100) {
+      this.$refs.createButton.disabledButton();
+    } else {
+      this.$refs.createButton.activeButton();
+    }
   },
   methods: {
     goToDashboard() {
@@ -117,19 +125,19 @@ export default {
       document.getElementsByTagName("body")[0].classList.remove("is-hide");
     },
     checkCreateButton(name) {
-      this.mix.name = name;
+      this.mixName = name;
       name.length > 0 ? this.$refs.createButton.activeButton() : this.$refs.createButton.disabledButton();
     },
     mixing() {
-      let uriTracks = this.mix.tracks.map(e => e.track.uri);
+      let uriTracks = this.tracks.map(e => e.uri);
 
-      createMixList(this, this.config.user_id, this.mix.name, uriTracks, this.config.access_token).then(() => {
+      createMixList(this, this.config.user_id, this.mixName, uriTracks, this.config.access_token).then(() => {
         this.closeModal();
         this.$router.history.push("dashboard");
       });
     }
   },
-  computed: mapState(["mixSelection", "config", "playlists"])
+  computed: mapState(["mixSelection", "config", "playlists", "tracks"])
 };
 </script>
 <style lang="scss">
@@ -160,6 +168,18 @@ export default {
         justify-content: flex-end;
       }
     }
+  }
+
+  &__alert {
+    color: white;
+    font-weight: 300;
+    font-size: 1.6rem;
+    text-align: center;
+
+    background-color: rgba($yellow, 0.3);
+    border: 1px solid $yellow;
+    padding: 15px;
+    margin-bottom: 15px;
   }
 
   &__list {

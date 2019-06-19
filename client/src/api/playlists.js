@@ -35,12 +35,14 @@ export function getPlaylistTracks(vueThis, idPlaylist, token) {
   return new Promise((resolve, reject) => {
     vueThis.spotify.getPlaylist(idPlaylist).then(
       data => {
-        resolve(data.body);
+        resolve(data.body.tracks.items);
       },
       err => reject(err)
     );
   });
 }
+
+
 
 /**
  * Async function to create playlist

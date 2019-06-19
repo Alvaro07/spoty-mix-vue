@@ -5,7 +5,7 @@
     <p v-if="loading" class="page-content__loading">Loading...</p>
     <p v-if="error" class>{{ error }}</p>
 
-    <main class="page-content__main" v-if="this.playlists.data">
+    <main class="page-content__main" v-if="this.playlists">
       <div class="dashboard__header">
         <h3 class="dashboard__header__title">Select your playlists for the mix.</h3>
         <v-button text="Mix" icon="music" disabled ref="mixButton" @onClick="goToMix"></v-button>
@@ -13,7 +13,7 @@
 
       <ul class="dashboard__list">
         <list-card
-          v-for="(item, index) in this.playlists.data"
+          v-for="(item, index) in this.playlists"
           :key="index"
           :title="item.name"
           :poster="item.images[0].url"
