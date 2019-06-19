@@ -29,20 +29,21 @@ export function getPlayLists(vueThis, user, token) {
  * @throws {Error}
  */
 
-export function getPlaylistTracks(vueThis, idPlaylist, token) {
+export async function getPlaylistTracks(vueThis, playlists, token) {
   vueThis.spotify.setAccessToken(token);
 
-  return new Promise((resolve, reject) => {
-    vueThis.spotify.getPlaylist(idPlaylist).then(
-      data => {
-        resolve(data.body.tracks.items);
-      },
-      err => reject(err)
-    );
-  });
+  let trackList = [];
+  for (const key in playlists) {
+    await vueThis.spotify
+      .getPlaylist(playlists[key])
+      .then(data => {
+        trackList = trackList.concat(data.body.tracks.items);
+      })
+      .catch(err => console.log(err));
+  }
+
+  return trackList.map(e => e.track);
 }
-
-
 
 /**
  * Async function to create playlist

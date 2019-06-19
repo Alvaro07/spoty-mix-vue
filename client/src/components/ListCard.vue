@@ -1,10 +1,5 @@
 <template>
-  <li
-    class="list-card"
-    :class="{'list-card--is-active' : isSelected}"
-    @click.prevent="toggleActive"
-    ref="thisCard"
-  >
+  <li class="list-card" :class="isSelectedClass" @click.prevent="toggleActive" ref="thisCard">
     <img :src="poster" :alt="title" class="list-card__image">
     <h3 class="list-card__title">{{ title }}</h3>
     <button class="list-card__preview" @click.stop="previewClick">Preview</button>
@@ -12,6 +7,7 @@
 </template>
 <script>
 import Button from "../components/Button";
+import { mapState } from "vuex";
 
 export default {
   name: "list-card",
@@ -23,7 +19,11 @@ export default {
   props: {
     title: String,
     poster: String,
-    id: String
+    id: String,
+    selected: Boolean
+  },
+  mounted() {
+    if (this.selected) this.isSelected = true;
   },
   methods: {
     toggleActive() {
@@ -35,7 +35,7 @@ export default {
         this.$store.commit("removeListToMix", this.id);
       }
 
-      if (this.$store.state.mixSelection.length >= 2) {
+      if (this.mixSelection.length >= 2) {
         this.$parent.$refs.mixButton.activeButton();
       } else {
         this.$parent.$refs.mixButton.disabledButton();
@@ -44,6 +44,12 @@ export default {
     previewClick() {
       this.$emit("openPreview");
     }
+  },
+  computed: {
+    isSelectedClass() {
+      if (this.isSelected) return "list-card--is-active";
+    },
+    ...mapState(["mixSelection"])
   }
 };
 </script>
