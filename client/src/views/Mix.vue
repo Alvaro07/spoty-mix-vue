@@ -20,9 +20,15 @@
             icon="volume-up"
             variant="green"
             @onClick="() => openCreateModal('modal-create')"
+            ref="createButton"
           ></v-button>
         </div>
       </div>
+
+      <div
+        class="mix__alert"
+        v-if="this.tracks.length >= 100"
+      >The maximum number of tracks for a playlist is 100, please delete some tracks</div>
 
       <ul class="mix__list">
         <track-item v-for="(item, index) in this.tracks" :key="index" :data="item"></track-item>
@@ -86,18 +92,23 @@ export default {
   },
   created() {
     let finalList = [];
-    // this.mix.tracks = [];
 
     this.mixSelection.forEach(element => {
       getPlaylistTracks(this, element, this.config.access_token).then(data => {
         finalList = finalList.concat(data.map(e => e.track));
-        console.log(finalList);
-        // this.mix.tracks = finalList;
         this.$store.commit("addTracks", finalList);
+        this.loading = false;
       });
     });
 
-    this.loading = false;
+    if (this.tracks.length !== 0) this.loading = false;
+  },
+  updated() {
+    if (this.tracks.length >= 100) {
+      this.$refs.createButton.disabledButton();
+    } else {
+      this.$refs.createButton.activeButton();
+    }
   },
   methods: {
     goToDashboard() {
@@ -157,6 +168,18 @@ export default {
         justify-content: flex-end;
       }
     }
+  }
+
+  &__alert {
+    color: white;
+    font-weight: 300;
+    font-size: 1.6rem;
+    text-align: center;
+
+    background-color: rgba($yellow, 0.3);
+    border: 1px solid $yellow;
+    padding: 15px;
+    margin-bottom: 15px;
   }
 
   &__list {
