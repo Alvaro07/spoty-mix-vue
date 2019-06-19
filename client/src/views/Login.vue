@@ -12,19 +12,19 @@
       Access with your spotify user and <span class="bold">mix your playlist</span> easily, choose your two ore more
       favorite lists and mix them in one click!
     </p>
-    <v-button
+    <!-- <v-button
       text="Login with your Spotify"
       type="buttonLink"
       href="https://spotymix-auth-server.herokuapp.com/login"
       big
-    ></v-button>
+    ></v-button> -->
 
-    <!-- <v-button
+    <v-button
       text="Login with your Spotify"
       type="buttonLink"
       href="http://localhost:8888/login"
       big
-    ></v-button> -->
+    ></v-button>
 
 
   </div>

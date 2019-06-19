@@ -12,9 +12,12 @@ export default new Vuex.Store({
       refresh_token: null
     },
     playlists: {},
-    mixSelection: []
+    mixSelection: [],
+    tracks: []
   },
   mutations: {
+    // Config and login/logout
+
     addConfig: (state, data) => {
       state.config.access_token = data.access_token;
       state.config.refresh_token = data.refresh_token;
@@ -24,6 +27,9 @@ export default new Vuex.Store({
     logOut: state => {
       state.auth = false;
     },
+
+    // Playlists
+
     addPlaylists: (state, data) => {
       state.playlists = { ...state.playlists, data };
     },
@@ -35,7 +41,12 @@ export default new Vuex.Store({
     },
     removeListToMix: (state, data) => {
       state.mixSelection = state.mixSelection.filter(e => e !== data);
+    },
+
+    // Tracks
+    addTracks: (state, data) => {
+      state.tracks = data;
     }
-  },
-  actions: {}
+
+  }
 });

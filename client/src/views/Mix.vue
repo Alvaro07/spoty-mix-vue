@@ -62,6 +62,7 @@ import Modal from "../components/Modal";
 import TrackItem from "../components/TrackItem";
 import InputField from "../components/InputField";
 import { getPlayLists, getPlaylistTracks, createMixList, addTracksToMixList } from "../api/playlists";
+import { mapState } from "vuex";
 
 export default {
   name: "mix",
@@ -90,12 +91,14 @@ export default {
     let finalList = [];
     this.mix.tracks = [];
 
-    this.$store.state.mixSelection.forEach(element => {
-      getPlaylistTracks(this, element, this.$store.state.config.access_token).then(data => {
+    this.mixSelection.forEach(element => {
+      getPlaylistTracks(this, element, this.config.access_token).then(data => {
         finalList = finalList.concat(data.tracks.items);
         this.mix.tracks = finalList;
       });
     });
+
+    // this.$store.commit("addTracks", finalList);
 
     this.loading = false;
   },
@@ -120,12 +123,13 @@ export default {
     mixing() {
       let uriTracks = this.mix.tracks.map(e => e.track.uri);
 
-      createMixList(this, this.$store.state.config.user_id, this.mix.name, uriTracks, this.$store.state.config.access_token).then(() => {
+      createMixList(this, this.config.user_id, this.mix.name, uriTracks, this.config.access_token).then(() => {
         this.closeModal();
         this.$router.history.push("dashboard");
       });
     }
-  }
+  },
+  computed: mapState(["mixSelection", "config", "playlists"])
 };
 </script>
 <style lang="scss">
@@ -155,7 +159,6 @@ export default {
         padding-top: 0;
         justify-content: flex-end;
       }
-      
     }
   }
 

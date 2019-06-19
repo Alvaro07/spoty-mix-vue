@@ -5,9 +5,7 @@
     <p v-if="loading" class="page-content__loading">Loading...</p>
     <p v-if="error" class>{{ error }}</p>
 
-    <main class="page-content__main" v-if="this.$store.state.playlists.data">
-      
-      
+    <main class="page-content__main" v-if="this.playlists.data">
       <div class="dashboard__header">
         <h3 class="dashboard__header__title">Select your playlists for the mix.</h3>
         <v-button text="Mix" icon="music" disabled ref="mixButton" @onClick="goToMix"></v-button>
@@ -15,7 +13,7 @@
 
       <ul class="dashboard__list">
         <list-card
-          v-for="(item, index) in this.$store.state.playlists.data"
+          v-for="(item, index) in this.playlists.data"
           :key="index"
           :title="item.name"
           :poster="item.images[0].url"
@@ -44,6 +42,7 @@ import ListCard from "../components/ListCard";
 import Modal from "../components/Modal";
 import TrackItem from "../components/TrackItem";
 import { getPlayLists, getPlaylistTracks } from "../api/playlists";
+import { mapState } from "vuex";
 
 export default {
   name: "dashboard",
@@ -69,9 +68,9 @@ export default {
     };
   },
   created() {
-    if (this.$store.state.mixSelection.length !== 0) this.$store.commit("resetPlaylistsSelection");
+    if (this.mixSelection.length !== 0) this.$store.commit("resetPlaylistsSelection");
 
-    getPlayLists(this, this.$store.state.config.user_id, this.$store.state.config.access_token)
+    getPlayLists(this, this.config.user_id, this.config.access_token)
       .then(data => {
         this.loading = false;
         this.$store.commit("addPlaylists", data);
@@ -85,7 +84,7 @@ export default {
     openModalPreview(modal, item) {
       document.getElementsByTagName("body")[0].classList.add("is-hide");
 
-      getPlaylistTracks(this, item.id, this.$store.state.config.access_token).then(data => {
+      getPlaylistTracks(this, item.id, this.config.access_token).then(data => {
         this.prePlaylist = { name: item.name, tracks: data.tracks.items };
         this.modal.isOpen = true;
         this.modal.name = modal;
@@ -100,13 +99,13 @@ export default {
     goToMix() {
       this.$router.history.push("mix");
     }
-  }
+  },
+  computed: mapState(["mixSelection", "config", "playlists"])
 };
 </script>
 
 <style lang="scss">
 .dashboard {
-
   &__header {
     display: flex;
     align-items: center;
@@ -117,11 +116,9 @@ export default {
       font-size: 2.6rem;
       color: white;
       font-weight: 700;
-
-      padding-right: 20px;
+      padding-right: 10px;
     }
   }
-
 
   &__list {
     display: grid;
