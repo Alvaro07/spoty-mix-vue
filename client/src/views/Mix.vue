@@ -5,7 +5,7 @@
     <p v-if="loading" class="page-content__loading">Loading...</p>
     <p v-if="error">{{ error }}</p>
 
-    <main class="page-content__main" v-if="this.mix.tracks">
+    <main class="page-content__main" v-if="this.tracks">
       <div class="mix__header">
         <h3 class="mix__header__title">Your new mixlist</h3>
         <div class="mix__header__actions">
@@ -25,7 +25,7 @@
       </div>
 
       <ul class="mix__list">
-        <track-item v-for="(item, index) in this.mix.tracks" :key="index" :data="item.track"></track-item>
+        <track-item v-for="(item, index) in this.tracks" :key="index" :data="item"></track-item>
       </ul>
 
       <Modal
@@ -81,24 +81,21 @@ export default {
         name: null,
         isOpen: false
       },
-      mix: {
-        name: null,
-        tracks: null
-      }
+      mixName: null
     };
   },
-  mounted() {
+  created() {
     let finalList = [];
-    this.mix.tracks = [];
+    // this.mix.tracks = [];
 
     this.mixSelection.forEach(element => {
       getPlaylistTracks(this, element, this.config.access_token).then(data => {
-        finalList = finalList.concat(data.tracks.items);
-        this.mix.tracks = finalList;
+        finalList = finalList.concat(data.map(e => e.track));
+        console.log(finalList);
+        // this.mix.tracks = finalList;
+        this.$store.commit("addTracks", finalList);
       });
     });
-
-    // this.$store.commit("addTracks", finalList);
 
     this.loading = false;
   },
@@ -117,19 +114,19 @@ export default {
       document.getElementsByTagName("body")[0].classList.remove("is-hide");
     },
     checkCreateButton(name) {
-      this.mix.name = name;
+      this.mixName = name;
       name.length > 0 ? this.$refs.createButton.activeButton() : this.$refs.createButton.disabledButton();
     },
     mixing() {
-      let uriTracks = this.mix.tracks.map(e => e.track.uri);
+      let uriTracks = this.tracks.map(e => e.uri);
 
-      createMixList(this, this.config.user_id, this.mix.name, uriTracks, this.config.access_token).then(() => {
+      createMixList(this, this.config.user_id, this.mixName, uriTracks, this.config.access_token).then(() => {
         this.closeModal();
         this.$router.history.push("dashboard");
       });
     }
   },
-  computed: mapState(["mixSelection", "config", "playlists"])
+  computed: mapState(["mixSelection", "config", "playlists", "tracks"])
 };
 </script>
 <style lang="scss">
