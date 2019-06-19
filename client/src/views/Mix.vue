@@ -5,7 +5,7 @@
     <p v-if="loading" class="page-content__loading">Loading...</p>
     <p v-if="error">{{ error }}</p>
 
-    <main class="page-content__main" v-if="this.tracks">
+    <main class="page-content__main" v-if="this.tracks.length > 0">
       <div class="mix__header">
         <h3 class="mix__header__title">Your new mixlist</h3>
         <div class="mix__header__actions">
@@ -90,18 +90,21 @@ export default {
       mixName: null
     };
   },
-  created() {
+  mounted() {
     let finalList = [];
 
-    this.mixSelection.forEach(element => {
-      getPlaylistTracks(this, element, this.config.access_token).then(data => {
-        finalList = finalList.concat(data.map(e => e.track));
-        this.$store.commit("addTracks", finalList);
-        this.loading = false;
-      });
+    getPlaylistTracks(this, this.mixSelection, this.config.access_token).then(data => {
+      this.$store.commit("addTracks", data);
+      this.loading = false;
     });
 
-    if (this.tracks.length !== 0) this.loading = false;
+    if (this.tracks.length !== 0) {
+      this.loading = false;
+    } else {
+      this.loading = true;
+    }
+
+
   },
   updated() {
     if (this.tracks.length >= 100) {

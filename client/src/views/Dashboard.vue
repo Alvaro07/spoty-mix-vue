@@ -5,10 +5,10 @@
     <p v-if="loading" class="page-content__loading">Loading...</p>
     <p v-if="error" class>{{ error }}</p>
 
-    <main class="page-content__main" v-if="this.playlists">
+    <main class="page-content__main" v-if="this.playlists.length > 0">
       <div class="dashboard__header">
         <h3 class="dashboard__header__title">Select your playlists for the mix.</h3>
-        <v-button text="Mix" icon="music" disabled ref="mixButton" @onClick="goToMix"></v-button>
+        <v-button text="Mix" icon="music" ref="mixButton" @onClick="goToMix"></v-button>
       </div>
 
       <ul class="dashboard__list">
@@ -19,6 +19,7 @@
           :poster="item.images[0].url"
           :id="item.id"
           @openPreview="() => openModalPreview('modal-preview', item)"
+          :selected="mixSelection.indexOf(item.id) !== -1 ? true : false"
         ></list-card>
       </ul>
     </main>
@@ -68,8 +69,6 @@ export default {
     };
   },
   created() {
-    if (this.mixSelection.length !== 0) this.$store.commit("resetPlaylistsSelection");
-
     getPlayLists(this, this.config.user_id, this.config.access_token)
       .then(data => {
         this.loading = false;
@@ -79,6 +78,9 @@ export default {
         this.loading = false;
         this.error = error.message;
       });
+  },
+  updated() {
+    this.mixSelection.length >= 2 ? this.$refs.mixButton.activeButton() : this.$refs.mixButton.disabledButton();
   },
   methods: {
     openModalPreview(modal, item) {
