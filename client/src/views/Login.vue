@@ -9,7 +9,7 @@
       <span>mixer</span> playlist
     </h2>
     <p class="login__description">
-      Access with your spotify user and mix your playlist easily, choose your two ore more
+      Access with your spotify user and <span class="bold">mix your playlist</span> easily, choose your two ore more
       favorite lists and mix them in one click!
     </p>
     <v-button
@@ -58,7 +58,8 @@ export default {
 
 <style lang="scss">
 .login {
-  height: 100vh;
+  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -84,6 +85,11 @@ export default {
       font-size: var(--logo-icon-size);
     }
 
+    @include mediaTablet {
+      --logo-font-size: 4.5rem;
+      --logo-icon-size: 4.8rem;
+    }
+
     @include mediaDesktop {
       --logo-font-size: 5rem;
       --logo-icon-size: 5.5rem;
@@ -99,7 +105,7 @@ export default {
     margin-bottom: 10px;
 
     @include mediaTablet {
-      --slogan-size: 2.6rem;
+      --slogan-size: 3rem;
     }
 
     @include mediaDesktop {
@@ -112,7 +118,7 @@ export default {
   }
 
   &__description {
-    --desc-size: 1.4rem;
+    --desc-size: 1.6rem;
 
     font-size: var(--desc-size);
     color: white;
@@ -120,10 +126,10 @@ export default {
     line-height: 1.3;
 
     margin-bottom: 30px;
-    padding: 0 20px;
+    padding: 0 30px;
 
     @include mediaTablet {
-      --desc-size: 1.6rem;
+      --desc-size: 1.8rem;
       max-width: 600px;
     }
   }

@@ -49,13 +49,13 @@ export default {
     align-items: center;
 
     color: white;
-    font-size: 2rem;
+    font-size: 2.4rem;
     font-weight: 900;
 
     &__icon {
       color: $pink;
       margin-right: 10px;
-      font-size: 3rem;
+      font-size: 3.2rem;
     }
   }
 }
