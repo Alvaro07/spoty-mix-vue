@@ -6,9 +6,9 @@
     <p v-if="error">{{ error }}</p>
 
     <main class="page-content__main" v-if="this.mix.tracks">
-      <div class="page-content__header">
-        <h3 class="page-content__header__title">Your mixlist:</h3>
-        <div>
+      <div class="mix__header">
+        <h3 class="mix__header__title">Your new mixlist</h3>
+        <div class="mix__header__actions">
           <v-button
             text="Return"
             icon="reply"
@@ -130,6 +130,35 @@ export default {
 </script>
 <style lang="scss">
 .mix {
+  &__header {
+    margin-bottom: 20px;
+
+    @include mediaDesktop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__title {
+      font-size: 2.6rem;
+      color: white;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    &__actions {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 20px;
+
+      @include mediaDesktop {
+        padding-top: 0;
+        justify-content: flex-end;
+      }
+      
+    }
+  }
+
   &__list {
     border-top: 3px solid $darkPink;
     border-bottom: 3px solid black;

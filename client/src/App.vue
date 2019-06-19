@@ -12,6 +12,12 @@ export default {
 
 <style lang="scss">
 @import "styles/index";
+
+.app {
+  height: 100%;
+  min-height: 100%;
+}
+
 .is-hide {
   overflow-y: hidden;
 }
@@ -39,18 +45,7 @@ export default {
     text-align: center;
   }
 
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-
-    &__title {
-      font-size: 2.4rem;
-      color: white;
-      font-weight: 700;
-    }
-  }
+  
 
   &__main {
     --main-padding: 20px;
@@ -64,5 +59,4 @@ export default {
     }
   }
 }
-
 </style>

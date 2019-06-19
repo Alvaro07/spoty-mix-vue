@@ -9,16 +9,23 @@
       <span>mixer</span> playlist
     </h2>
     <p class="login__description">
-      Access with your spotify user and mix your playlist easily, choose your two ore more
+      Access with your spotify user and <span class="bold">mix your playlist</span> easily, choose your two ore more
       favorite lists and mix them in one click!
     </p>
     <v-button
       text="Login with your Spotify"
       type="buttonLink"
-      href="http://localhost:8888/login"
+      href="https://spotymix-auth-server.herokuapp.com/login"
       big
     ></v-button>
-      <!-- href="https://spotymix-auth-server.herokuapp.com/login" -->
+
+    <!-- <v-button
+      text="Login with your Spotify"
+      type="buttonLink"
+      href="http://localhost:8888/login"
+      big
+    ></v-button> -->
+
 
   </div>
 </template>
@@ -58,7 +65,8 @@ export default {
 
 <style lang="scss">
 .login {
-  height: 100vh;
+  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,8 +75,9 @@ export default {
   text-align: center;
 
   &__logo {
-    --logo-font-size: 4rem;
-    --logo-icon-size: 5rem;
+    --logo-font-size: 4.5rem;
+    --logo-icon-size: 4.8rem;
+    --logo-margin: 40px; 
 
     display: flex;
     align-items: center;
@@ -76,30 +85,39 @@ export default {
     color: white;
     font-size: var(--logo-font-size);
     font-weight: 900;
-    margin-bottom: 30px;
+    margin-bottom: var(--logo-margin);
 
     &__icon {
       color: $pink;
       margin-right: 15px;
       font-size: var(--logo-icon-size);
     }
+    @include mediaTablet {
+      --logo-margin: 30px;
+    }
+
 
     @include mediaDesktop {
       --logo-font-size: 5rem;
       --logo-icon-size: 5.5rem;
+      
     }
   }
 
   &__slogan {
-    --slogan-size: 2.4rem;
+    --slogan-size: 3.4rem;
+    --slogan-margin: 20px;
 
     font-size: var(--slogan-size);
     color: white;
     font-weight: 900;
-    margin-bottom: 10px;
+    margin-bottom: var(--slogan-margin);
+    padding: 0 30px;
+    line-height: 1;
 
     @include mediaTablet {
-      --slogan-size: 2.6rem;
+      --slogan-size: 3rem;
+      --slogan-margin: 10px;
     }
 
     @include mediaDesktop {
@@ -112,7 +130,7 @@ export default {
   }
 
   &__description {
-    --desc-size: 1.4rem;
+    --desc-size: 1.6rem;
 
     font-size: var(--desc-size);
     color: white;
@@ -123,7 +141,7 @@ export default {
     padding: 0 20px;
 
     @include mediaTablet {
-      --desc-size: 1.6rem;
+      --desc-size: 1.8rem;
       max-width: 600px;
     }
   }

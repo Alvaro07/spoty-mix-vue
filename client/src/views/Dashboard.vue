@@ -6,8 +6,10 @@
     <p v-if="error" class>{{ error }}</p>
 
     <main class="page-content__main" v-if="this.$store.state.playlists.data">
-      <div class="page-content__header">
-        <h3 class="page-content__header__title">Select your playlists for mix.</h3>
+      
+      
+      <div class="dashboard__header">
+        <h3 class="dashboard__header__title">Select your playlists for the mix.</h3>
         <v-button text="Mix" icon="music" disabled ref="mixButton" @onClick="goToMix"></v-button>
       </div>
 
@@ -104,6 +106,23 @@ export default {
 
 <style lang="scss">
 .dashboard {
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    &__title {
+      font-size: 2.6rem;
+      color: white;
+      font-weight: 700;
+
+      padding-right: 20px;
+    }
+  }
+
+
   &__list {
     display: grid;
     grid-gap: 10px;

@@ -64,7 +64,7 @@ export default {
   }
 
   &:hover {
-    --bg-color: #{rgba($lightGrey, .4)};
+    --bg-color: #{$darkGrey};
     --actions-bg-color: #{$darkGrey};
     --actions-border-color: #{$darkGrey};
     --actions-poster-border-color: #{$pink};
@@ -77,9 +77,8 @@ export default {
 
     img {
       max-width: 40px;
-      padding: 2px;
       transition: .1s all ease;
-      border:1px solid var(--actions-poster-border-color);
+      border:2px solid var(--actions-poster-border-color);
     }
   }
 

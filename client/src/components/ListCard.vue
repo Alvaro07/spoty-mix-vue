@@ -3,6 +3,7 @@
     class="list-card"
     :class="{'list-card--is-active' : isSelected}"
     @click.prevent="toggleActive"
+    ref="thisCard"
   >
     <img :src="poster" :alt="title" class="list-card__image">
     <h3 class="list-card__title">{{ title }}</h3>
@@ -27,6 +28,7 @@ export default {
   methods: {
     toggleActive() {
       this.isSelected = !this.isSelected;
+
       if (this.isSelected) {
         this.$store.commit("addListToMix", this.id);
       } else {
@@ -34,9 +36,9 @@ export default {
       }
 
       if (this.$store.state.mixSelection.length >= 2) {
-        this.$parent.$refs.mixButton.activeButton()
+        this.$parent.$refs.mixButton.activeButton();
       } else {
-        this.$parent.$refs.mixButton.disabledButton()
+        this.$parent.$refs.mixButton.disabledButton();
       }
     },
     previewClick() {
@@ -57,9 +59,14 @@ export default {
   transition: 0.3s all ease;
   border-radius: 3px;
 
-  &:hover,
   &--is-active {
     background-color: rgba($pink, 0.8);
+  }
+
+  &:hover {
+    @media (hover: hover) {
+      background-color: rgba($pink, 0.8);
+    }
   }
 
   &__image {
