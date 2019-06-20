@@ -1,30 +1,47 @@
 <template>
   <li class="c-track-item">
-    <div class="c-track-item__poster">
-      <img :src="poster" :alt="title">
-    </div>
     <div class="c-track-item__cont">
-      <h3 class="c-track-item__cont__artist">{{ artist }}</h3>
-      <h4 class="c-track-item__cont__track">
-        {{ title }}
-        <span>{{ album }}</span>
-      </h4>
+      <div class="c-track-item__cont__poster">
+        <img :src="poster" :alt="title">
+      </div>
+      <div class="c-track-item__cont__title">
+        <h3 class="c-track-item__cont__artist">{{ artist }}</h3>
+        <h4 class="c-track-item__cont__track">
+          {{ title }}
+          <span>{{ album }}</span>
+        </h4>
+      </div>
     </div>
-    <!-- <div class="c-track-item__actions">
-      <button class="c-track-item__actions__play">
+
+    <div class="c-track-item__actions">
+      <!-- <button class="c-track-item__actions__icon">
         <font-awesome-icon icon="play"/>
+      </button>-->
+
+      <button
+        class="c-track-item__actions__icon"
+        v-if="isDeletable"
+        @click.prevent="deleteThisTrack"
+      >
+        <font-awesome-icon icon="trash"/>
       </button>
-    </div>-->
+    </div>
   </li>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "track-item",
   props: {
     data: {
       type: Object,
       required: true
+    },
+    isDeletable: {
+      type: Boolean,
+      required: false
     }
   },
   computed: {
@@ -39,6 +56,16 @@ export default {
     },
     album() {
       return this.data.album.name;
+    },
+    ...mapState(["tracks"])
+  },
+  methods: {
+    deleteThisTrack() {
+      this.$store.commit("deleteTrack", this.data.id);
+      if (this.tracks.length === 0) {
+        this.$store.commit("resetPlaylistsSelection");
+        this.$router.history.push("dashboard");
+      }
     }
   }
 };
@@ -46,13 +73,12 @@ export default {
 <style lang="scss">
 .c-track-item {
   --bg-color: #{$grey};
-
+  --poster-border-color: #{$lightGrey};
   --actions-bg-color: #1b1d20;
   --actions-border-color: #100e0e;
-  --actions-poster-border-color: #{$lightGrey};
 
   display: flex;
-  background-color: var(--bg-color);
+
   cursor: pointer;
   transition: 0.1s all ease;
 
@@ -63,30 +89,47 @@ export default {
     border-bottom: 1px solid $lightGrey;
   }
 
-  &:hover {
-    --bg-color: #{$darkGrey};
-    --actions-bg-color: #{$darkGrey};
-    --actions-border-color: #{$darkGrey};
-    --actions-poster-border-color: #{$pink};
-  }
 
-  &__poster {
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
-    img {
-      max-width: 40px;
-      transition: .1s all ease;
-      border:2px solid var(--actions-poster-border-color);
-    }
-  }
+  /*
+  * Content container 
+  */
 
   &__cont {
     flex: 1;
+    display: flex;
+    align-items: center;
     padding: 10px;
     color: white;
-    // border-right: 1px solid $lightGrey;
+    border-right: 1px solid $lightGrey;
+    background-color: var(--bg-color);
+
+    &:hover {
+      --bg-color: #{$darkGrey};
+      --poster-border-color: #{$pink};
+      --actions-border-color: #{$darkGrey};
+    }
+
+    &__poster {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      img {
+        max-width: 40px;
+        transition: 0.1s all ease;
+        border: 2px solid var(--poster-border-color);
+      }
+    }
+
+    /*
+    * Name and album
+    */
+
+    &__title {
+      padding-left: 15px;
+    }
 
     &__artist {
       font-size: 1.3rem;
@@ -100,19 +143,35 @@ export default {
     }
   }
 
+  /*
+  * Actions container
+  */
+
   &__actions {
     border-left: 1px solid var(--actions-border-color);
     transition: 0.1s all ease;
 
-    &__play {
+    &__icon {
       height: 100%;
       padding: 10px 20px;
       border: none;
       background-color: var(--actions-bg-color);
-      color: $darkPink;
+      color: white;
       font-size: 1.8rem;
       transition: 0.1s all ease;
       cursor: pointer;
+
+      &:not(:first-child) {
+        border-left: 1px solid $lightGrey;
+      }
+      &:not(:last-child) {
+        border-right: 1px solid $darkGrey;
+      }
+
+      &:hover,
+      &.is-active {
+        --actions-bg-color: #{$pink};
+      }
     }
   }
 }

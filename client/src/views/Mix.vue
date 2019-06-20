@@ -7,7 +7,11 @@
 
     <main class="page-content__main" v-if="!this.loading">
       <div class="mix__header">
-        <h3 class="mix__header__title">Your new mixlist</h3>
+        <div class="mix__header__title">
+          <h3 class="mix__header__title__desc">Your new mixlist</h3>
+          <h4 class="mix__header__title__number">Number of tracks: {{ this.tracks.length}}</h4>
+        </div>
+
         <div class="mix__header__actions">
           <v-button
             text="Return"
@@ -31,7 +35,7 @@
       >The maximum number of tracks for a playlist is 100, please delete some tracks</div>
 
       <ul class="mix__list" v-if="!this.loading">
-        <track-item v-for="(item, index) in this.tracks" :key="index" :data="item"></track-item>
+        <track-item v-for="(item, index) in this.tracks" :key="index" :data="item" isDeletable></track-item>
       </ul>
 
       <Modal
@@ -148,10 +152,18 @@ export default {
     }
 
     &__title {
-      font-size: 2.6rem;
       color: white;
-      font-weight: 700;
-      text-align: center;
+      text-align: left;
+
+      &__desc {
+        font-size: 2.6rem;
+        font-weight: 700;
+        padding-bottom: 5px;
+      }
+      &__number {
+        font-size: 1.6rem;
+        font-weight: 300;
+      }
     }
 
     &__actions {

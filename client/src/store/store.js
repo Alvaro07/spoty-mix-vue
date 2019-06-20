@@ -44,6 +44,9 @@ export default new Vuex.Store({
     // Tracks
     addTracks: (state, data) => {
       state.tracks = data;
+    },
+    deleteTrack: (state, idTrack) => {
+      state.tracks = state.tracks.filter(e => e.id !== idTrack);
     }
   }
 });
