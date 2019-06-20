@@ -13,6 +13,12 @@ export default {
 <style lang="scss">
 @import "styles/index";
 
+.app {
+  display: block;
+  height: 100%;
+  min-height: 100%;
+}
+
 .is-hide {
   overflow-y: hidden;
 }
@@ -30,8 +36,6 @@ export default {
 }
 
 .page-content {
-  height: 100%;
-
   &__loading {
     color: white;
     font-weight: 700;
