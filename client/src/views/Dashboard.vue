@@ -11,6 +11,11 @@
         <v-button text="Mix" icon="music" ref="mixButton" @onClick="goToMix"></v-button>
       </div>
 
+      <div class="dashboard__alert" v-if="this.alert.isVisible">
+        The playlist
+        <span class="bold">"{{ this.alert.name }}"</span> has been created correctly
+      </div>
+
       <ul class="dashboard__list">
         <list-card
           v-for="(item, index) in this.playlists"
@@ -58,6 +63,10 @@ export default {
     return {
       loading: true,
       error: null,
+      alert: {
+        isVisible: false,
+        name: null
+      },
       modal: {
         name: null,
         isOpen: false
@@ -78,6 +87,15 @@ export default {
         this.loading = false;
         this.error = error.message;
       });
+
+    if (this.$route.params.mixCreated) {
+      this.alert.isVisible = true;
+      this.alert.name = this.$route.params.name;
+
+      setTimeout(() => {
+        this.alert.isVisible = false;
+      }, 3000);
+    }
   },
   updated() {
     this.mixSelection.length >= 2 ? this.$refs.mixButton.activeButton() : this.$refs.mixButton.disabledButton();
@@ -120,6 +138,18 @@ export default {
       font-weight: 700;
       padding-right: 10px;
     }
+  }
+
+  &__alert {
+    color: white;
+    font-weight: 300;
+    font-size: 1.6rem;
+    text-align: center;
+
+    background-color: rgba($green, 0.3);
+    border: 1px solid $green;
+    padding: 15px;
+    margin-bottom: 15px;
   }
 
   &__list {
