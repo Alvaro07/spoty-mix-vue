@@ -107,7 +107,7 @@ export default {
     if (this.tracks.length >= 100) {
       this.$refs.createButton.disabledButton();
     } else {
-      this.$refs.createButton.activeButton();
+      if (this.$refs.createButton !== undefined) this.$refs.createButton.activeButton();
     }
   },
   methods: {
@@ -133,7 +133,8 @@ export default {
 
       createMixList(this, this.config.user_id, this.mixName, uriTracks, this.config.access_token).then(() => {
         this.closeModal();
-        this.$router.history.push("dashboard");
+        this.$router.history.push({ name: "dashboard", params: { mixCreated: true, name: this.mixName } });
+        this.$store.commit("resetPlaylistsSelection");
       });
     }
   },

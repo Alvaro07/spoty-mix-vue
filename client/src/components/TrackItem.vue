@@ -1,6 +1,6 @@
 <template>
   <li class="c-track-item">
-    <div class="c-track-item__cont">
+    <div class="c-track-item__cont" ref="trackContent">
       <div class="c-track-item__cont__poster">
         <img :src="poster" :alt="title">
       </div>
@@ -21,7 +21,8 @@
       <button
         class="c-track-item__actions__icon"
         v-if="isDeletable"
-        @click.prevent="deleteThisTrack"
+        @click.prevent="e => deleteThisTrack(e)"
+        ref="deleteButton"
       >
         <font-awesome-icon icon="trash"/>
       </button>
@@ -60,8 +61,10 @@ export default {
     ...mapState(["tracks"])
   },
   methods: {
-    deleteThisTrack() {
+    deleteThisTrack(e) {
       this.$store.commit("deleteTrack", this.data.id);
+      this.$refs.deleteButton.blur();
+
       if (this.tracks.length === 0) {
         this.$store.commit("resetPlaylistsSelection");
         this.$router.history.push("dashboard");
@@ -88,8 +91,6 @@ export default {
   &:not(:last-child) {
     border-bottom: 1px solid $lightGrey;
   }
-
-
 
   /*
   * Content container 
@@ -168,10 +169,17 @@ export default {
         border-right: 1px solid $darkGrey;
       }
 
-      &:hover,
       &.is-active {
         --actions-bg-color: #{$pink};
       }
+
+      &:hover {
+        @media (hover: hover) {
+          --actions-bg-color: #{$pink};
+        }
+      }
+
+      
     }
   }
 }

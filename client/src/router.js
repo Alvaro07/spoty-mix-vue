@@ -30,6 +30,7 @@ const router = new Router({
       path: "/dashboard",
       name: "dashboard",
       component: Dashboard,
+      props: { mixCreated: false, name: null },
       beforeEnter: (to, from, next) => {
         store.state.auth ? next() : next({ name: "login" });
       }
