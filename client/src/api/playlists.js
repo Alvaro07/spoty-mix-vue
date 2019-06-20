@@ -64,7 +64,7 @@ export async function createMixList(vueThis, userId, name, tracks, token) {
   vueThis.spotify.setAccessToken(token);
 
   try {
-    const data = await vueThis.spotify.createPlaylist(userId, name, { public: false });
+    const data = await vueThis.spotify.createPlaylist(userId, name, { public: true });
     const playlistId = data.body.id;
     await vueThis.spotify.addTracksToPlaylist(playlistId, tracks);
   } catch (err) {
