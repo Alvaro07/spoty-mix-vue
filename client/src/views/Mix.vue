@@ -107,7 +107,7 @@ export default {
     if (this.tracks.length >= 100) {
       this.$refs.createButton.disabledButton();
     } else {
-      this.$refs.createButton.activeButton();
+      if ( this.$refs.createButton !== undefined ) this.$refs.createButton.activeButton();
     }
   },
   methods: {
