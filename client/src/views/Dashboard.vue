@@ -90,7 +90,6 @@ export default {
         this.prePlaylist = { name: item.name, tracks: data };
         this.modal.isOpen = true;
         this.modal.name = modal;
-        console.log(this.prePlaylist);
       });
     },
     closeModal() {

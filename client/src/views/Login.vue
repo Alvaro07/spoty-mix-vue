@@ -65,7 +65,7 @@ export default {
 
 <style lang="scss">
 .login {
-  height: 100%;
+  height: 100vh;
   min-height: 100%;
   display: flex;
   flex-direction: column;
