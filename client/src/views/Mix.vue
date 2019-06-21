@@ -2,7 +2,7 @@
   <section class="page-content">
     <v-header></v-header>
 
-    <p v-if="loading" class="page-content__loading">Loading...</p>
+    <Loader v-if="loading"></Loader>
     <p v-if="error">{{ error }}</p>
 
     <main class="page-content__main" v-if="!this.loading">
@@ -72,6 +72,7 @@ import Modal from "../components/Modal";
 import TrackItem from "../components/TrackItem";
 import InputField from "../components/InputField";
 import Alert from "../components/Alert";
+import Loader from "../components/Loader";
 import { getPlayLists, getPlaylistTracks, createMixList, addTracksToMixList } from "../api/playlists";
 import { mapState } from "vuex";
 
@@ -83,7 +84,8 @@ export default {
     "track-item": TrackItem,
     Modal,
     InputField,
-    Alert
+    Alert,
+    Loader
   },
   data() {
     return {
