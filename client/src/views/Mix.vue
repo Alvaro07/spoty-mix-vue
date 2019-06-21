@@ -2,7 +2,7 @@
   <section class="page-content">
     <v-header></v-header>
 
-    <p v-if="loading" class="page-content__loading">Loading...</p>
+    <Loader v-if="loading"></Loader>
     <p v-if="error">{{ error }}</p>
 
     <main class="page-content__main" v-if="!this.loading">
