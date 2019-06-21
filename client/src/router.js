@@ -7,7 +7,7 @@ import store from "./store/store";
 
 Vue.use(Router);
 
-const prodRoute = "/spoty-mix-vue/"
+const prodRoute = "/spoty-mix-vue/";
 
 const router = new Router({
   mode: "history",
@@ -42,7 +42,8 @@ const router = new Router({
       beforeEnter: (to, from, next) => {
         store.state.auth ? next() : next({ name: "login" });
       }
-    }
+    },
+    { path: "*", redirect: { name: "login" } }
   ]
 });
 
