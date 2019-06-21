@@ -2,19 +2,19 @@
   <section class="page-content">
     <v-header></v-header>
 
-    <p v-if="loading" class="page-content__loading">Loading...</p>
+    <Loader v-if="loading"></Loader>
     <p v-if="error" class>{{ error }}</p>
 
     <main class="page-content__main" v-if="this.playlists.length > 0">
       <div class="dashboard__header">
         <h3 class="dashboard__header__title">Select your playlists for the mix.</h3>
-        <v-button text="Mix" icon="music" ref="mixButton" @onClick="goToMix"></v-button>
+        <v-button text="Mix" icon="music" ref="mixButton" @onClick="goToMix" variant="green"></v-button>
       </div>
 
-      <div class="dashboard__alert" v-if="this.alert.isVisible">
+      <Alert color="green" v-if="this.alert.isVisible">
         The playlist
         <span class="bold">"{{ this.alert.name }}"</span> has been created correctly
-      </div>
+      </Alert>
 
       <ul class="dashboard__list">
         <list-card
@@ -47,6 +47,8 @@ import NavHeader from "../components/NavHeader";
 import ListCard from "../components/ListCard";
 import Modal from "../components/Modal";
 import TrackItem from "../components/TrackItem";
+import Alert from "../components/Alert";
+import Loader from "../components/Loader";
 import { getPlayLists, getPlaylistTracks } from "../api/playlists";
 import { mapState } from "vuex";
 
@@ -57,7 +59,9 @@ export default {
     "list-card": ListCard,
     "v-button": Button,
     "track-item": TrackItem,
-    Modal
+    Modal,
+    Alert,
+    Loader
   },
   data() {
     return {
@@ -138,18 +142,6 @@ export default {
       font-weight: 700;
       padding-right: 10px;
     }
-  }
-
-  &__alert {
-    color: white;
-    font-weight: 300;
-    font-size: 1.6rem;
-    text-align: center;
-
-    background-color: rgba($green, 0.3);
-    border: 1px solid $green;
-    padding: 15px;
-    margin-bottom: 15px;
   }
 
   &__list {

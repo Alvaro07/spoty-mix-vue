@@ -29,10 +29,10 @@
         </div>
       </div>
 
-      <div
-        class="mix__alert"
-        v-if="this.tracks.length >= 100"
-      >The maximum number of tracks for a playlist is 100, please delete some tracks</div>
+      <Alert v-if="this.tracks.length >= 100">
+        The
+        <span class="bold">maximum number of tracks</span> for a playlist is 100, please delete some tracks
+      </Alert>
 
       <ul class="mix__list" v-if="!this.loading">
         <track-item v-for="(item, index) in this.tracks" :key="index" :data="item" isDeletable></track-item>
@@ -71,6 +71,7 @@ import NavHeader from "../components/NavHeader";
 import Modal from "../components/Modal";
 import TrackItem from "../components/TrackItem";
 import InputField from "../components/InputField";
+import Alert from "../components/Alert";
 import { getPlayLists, getPlaylistTracks, createMixList, addTracksToMixList } from "../api/playlists";
 import { mapState } from "vuex";
 
@@ -81,7 +82,8 @@ export default {
     "v-button": Button,
     "track-item": TrackItem,
     Modal,
-    InputField
+    InputField,
+    Alert
   },
   data() {
     return {
@@ -177,18 +179,6 @@ export default {
         justify-content: flex-end;
       }
     }
-  }
-
-  &__alert {
-    color: white;
-    font-weight: 300;
-    font-size: 1.6rem;
-    text-align: center;
-
-    background-color: rgba($yellow, 0.3);
-    border: 1px solid $yellow;
-    padding: 15px;
-    margin-bottom: 15px;
   }
 
   &__list {

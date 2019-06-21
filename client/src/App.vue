@@ -36,6 +36,7 @@ export default {
 }
 
 .page-content {
+  
   &__loading {
     color: white;
     font-weight: 700;
