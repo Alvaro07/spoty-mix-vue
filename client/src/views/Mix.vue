@@ -72,6 +72,7 @@ import Modal from "../components/Modal";
 import TrackItem from "../components/TrackItem";
 import InputField from "../components/InputField";
 import Alert from "../components/Alert";
+import Loader from "../components/Loader";
 import { getPlayLists, getPlaylistTracks, createMixList, addTracksToMixList } from "../api/playlists";
 import { mapState } from "vuex";
 
@@ -83,7 +84,8 @@ export default {
     "track-item": TrackItem,
     Modal,
     InputField,
-    Alert
+    Alert,
+    Loader
   },
   data() {
     return {
