@@ -1,19 +1,21 @@
 <template>
-  <div class="c-modal">
-    <div class="c-modal__wrap">
-      <span class="c-modal__wrap__icon-close" @click="closeModal">
-        <font-awesome-icon icon="times-circle"/>
-      </span>
+  <transition name="modal-fade">
+    <div class="c-modal">
+      <div class="c-modal__wrap">
+        <span class="c-modal__wrap__icon-close" @click="closeModal">
+          <font-awesome-icon icon="times-circle"/>
+        </span>
 
-      <header v-if="title" class="c-modal__header">
-        <h2 class="c-modal__header__title">{{ title }}</h2>
-      </header>
+        <header v-if="title" class="c-modal__header">
+          <h2 class="c-modal__header__title">{{ title }}</h2>
+        </header>
 
-      <main class="c-modal__content">
-        <slot>No content</slot>
-      </main>
+        <main class="c-modal__content">
+          <slot>No content</slot>
+        </main>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 <script>
 export default {
@@ -87,4 +89,14 @@ export default {
     border-bottom: 3px solid $darkPink;
   }
 }
+
+.modal-fade-enter,
+  .modal-fade-leave-active {
+    opacity: 0;
+  }
+
+  .modal-fade-enter-active,
+  .modal-fade-leave-active {
+    transition: opacity .3s ease
+  }
 </style>

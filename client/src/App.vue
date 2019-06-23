@@ -36,7 +36,6 @@ export default {
 }
 
 .page-content {
-  
   &__loading {
     color: white;
     font-weight: 700;
@@ -54,6 +53,23 @@ export default {
 
     @include mediaTablet() {
       --main-padding: 30px 20px;
+    }
+  }
+
+  &__footer {
+    width: 100%;
+    padding: 15px;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+
+    background: $darkGrey;
+    border-top: 2px solid $grey;
+
+    @include mediaDesktop {
+      display: none;
     }
   }
 }
