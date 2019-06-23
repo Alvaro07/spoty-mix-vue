@@ -5,10 +5,18 @@
     <Loader v-if="loading"></Loader>
     <p v-if="error" class>{{ error }}</p>
 
-    <main class="page-content__main" v-if="this.playlists.length > 0">
+    <main class="page-content__main" v-if="!loading">
       <div class="dashboard__header">
         <h3 class="dashboard__header__title">Select your playlists for the mix.</h3>
-        <v-button text="Mix" icon="music" ref="mixButton" @onClick="goToMix" variant="green"></v-button>
+
+        <v-button
+          text="Mix"
+          icon="music"
+          ref="mixButtonDesktop"
+          @onClick="goToMix"
+          variant="green"
+          extraClass="dashboard__header__mix-desktop"
+        ></v-button>
       </div>
 
       <Alert color="green" v-if="this.alert.isVisible">
@@ -16,7 +24,7 @@
         <span class="bold">"{{ this.alert.name }}"</span> has been created correctly
       </Alert>
 
-      <ul class="dashboard__list">
+      <ul class="dashboard__list" v-if="!loading">
         <list-card
           v-for="(item, index) in this.playlists"
           :key="index"
@@ -30,7 +38,7 @@
     </main>
 
     <Modal
-      v-if="modal.isOpen && modal.name === 'modal-preview'"
+      v-show="modal.isOpen && modal.name === 'modal-preview'"
       @close="closeModal"
       :title="this.prePlaylist.name"
     >
@@ -38,6 +46,17 @@
         <track-item v-for="(item, index) in prePlaylist.tracks" :key="index" :data="item"></track-item>
       </ul>
     </Modal>
+
+    <footer class="page-content__footer" v-if="!loading">
+      <v-button
+        text="Mix"
+        icon="music"
+        ref="mixButton"
+        @onClick="goToMix"
+        variant="green"
+        fullWidth
+      ></v-button>
+    </footer>
   </section>
 </template>
 
@@ -95,6 +114,7 @@ export default {
     if (this.$route.params.mixCreated) {
       this.alert.isVisible = true;
       this.alert.name = this.$route.params.name;
+      this.$scrollTo({ element: "body", easing: "linear" });
 
       setTimeout(() => {
         this.alert.isVisible = false;
@@ -102,7 +122,13 @@ export default {
     }
   },
   updated() {
-    this.mixSelection.length >= 2 ? this.$refs.mixButton.activeButton() : this.$refs.mixButton.disabledButton();
+    if (this.mixSelection.length >= 2) {
+      this.$refs.mixButton.activeButton();
+      this.$refs.mixButtonDesktop.activeButton();
+    } else {
+      this.$refs.mixButton.disabledButton();
+      this.$refs.mixButtonDesktop.disabledButton();
+    }
   },
   methods: {
     openModalPreview(modal, item) {
@@ -142,6 +168,13 @@ export default {
       font-weight: 700;
       padding-right: 10px;
     }
+
+    &__mix-desktop {
+      display: none;
+      @include mediaDesktop {
+        display: inline-block;
+      }
+    }
   }
 
   &__list {
@@ -157,5 +190,6 @@ export default {
       grid-template-columns: repeat(6, 1fr);
     }
   }
+
 }
 </style>

@@ -3,7 +3,7 @@
     v-if="type === 'buttonLink'"
     :href="href"
     class="c-button"
-    :class="[{'c-button--big ': big}, {'c-button--disabled ': isDisabled}, variantClass, extraClass]"
+    :class="[{'c-button--big ': big}, {'c-button--disabled ': isDisabled}, variantClass, extraClass, {' c-button--full-width': fullWidth}]"
   >
     <font-awesome-icon v-if="icon" :icon="icon" class="c-button__icon"/>
     <span v-if="text" class="c-button__text">{{ text }}</span>
@@ -13,7 +13,7 @@
     v-else
     class="c-button"
     @click.prevent="onButtonClick"
-    :class="[{'c-button--big ': big}, {'c-button--disabled ': isDisabled}, variantClass, extraClass]"
+    :class="[{'c-button--big ': big}, {'c-button--disabled ': isDisabled}, variantClass, extraClass, {' c-button--full-width': fullWidth}]"
   >
     <font-awesome-icon v-if="icon" :icon="icon" class="c-button__icon"/>
     <span v-if="text" class="c-button__text">{{ text }}</span>
@@ -32,7 +32,8 @@ export default {
     extraClass: String,
     big: Boolean,
     disabled: Boolean,
-    variant: String
+    variant: String,
+    fullWidth: Boolean
   },
   data() {
     return {
@@ -62,13 +63,12 @@ export default {
 
 
 <style lang="scss">
-
 .c-button {
   --bg-color: #{$pink};
   --border-color: #{$darkPink};
   --font-color: white;
-  --padding-size: 12px 15px;
-  --font-text: 1.4rem;
+  --padding-size: 10px 15px;
+  --font-text: 1.6rem;
   --icon-size: 1.6rem;
   --icon-space: 10px;
 
@@ -104,9 +104,14 @@ export default {
   * Modifiers
   */
 
+  &--full-width {
+    width: 100%;
+    justify-content: center;
+  }
+
   &--big {
     --padding-size: 15px 30px;
-    --font-text: 1.6rem;
+    --font-text: 1.8rem;
     --icon-size: 2rem;
     --icon-space: 15px;
   }

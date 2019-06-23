@@ -19,12 +19,14 @@
             extraClass="margin-right-10"
             @onClick="goToDashboard"
           ></v-button>
+
           <v-button
             text="Create playlist"
             icon="volume-up"
             variant="green"
             @onClick="() => openCreateModal('modal-create')"
-            ref="createButton"
+            ref="createButtonDesktop"
+            extraClass="mix__header__mix-desktop"
           ></v-button>
         </div>
       </div>
@@ -39,7 +41,7 @@
       </ul>
 
       <Modal
-        v-if="modal.isOpen && modal.name === 'modal-create'"
+        v-show="modal.isOpen && modal.name === 'modal-create'"
         @close="closeModal"
         title="Set a name for your playlist and create it!"
       >
@@ -47,7 +49,7 @@
           <form class="mix__modal-create__form">
             <InputField
               placeholder="Playlist name"
-              @onKeyUp="e => checkCreateButton(e)"
+              @onKeyUp="e => checkCreateMixButton(e)"
               extraClass="margin-right-20"
             ></InputField>
             <v-button
@@ -55,7 +57,7 @@
               icon="sliders-h"
               variant="green"
               disabled
-              ref="createButton"
+              ref="createMixButton"
               type="submit"
               @onClick="mixing"
             ></v-button>
@@ -63,6 +65,17 @@
         </div>
       </Modal>
     </main>
+
+    <footer class="page-content__footer" v-if="!loading">
+      <v-button
+        text="Create playlist"
+        icon="volume-up"
+        variant="green"
+        @onClick="() => openCreateModal('modal-create')"
+        ref="createButton"
+        fullWidth
+      ></v-button>
+    </footer>
   </section>
 </template>
 <script>
@@ -110,8 +123,10 @@ export default {
   updated() {
     if (this.tracks.length >= 100) {
       this.$refs.createButton.disabledButton();
+      this.$refs.createButtonDesktop.disabledButton();
     } else {
       if (this.$refs.createButton !== undefined) this.$refs.createButton.activeButton();
+      if (this.$refs.createButtonDesktop !== undefined) this.$refs.createButtonDesktop.activeButton();
     }
   },
   methods: {
@@ -128,9 +143,9 @@ export default {
       this.modal.name = null;
       document.getElementsByTagName("body")[0].classList.remove("is-hide");
     },
-    checkCreateButton(name) {
+    checkCreateMixButton(name) {
       this.mixName = name;
-      name.length > 0 ? this.$refs.createButton.activeButton() : this.$refs.createButton.disabledButton();
+      name.length > 0 ? this.$refs.createMixButton.activeButton() : this.$refs.createMixButton.disabledButton();
     },
     mixing() {
       let uriTracks = this.tracks.map(e => e.uri);
@@ -149,12 +164,9 @@ export default {
 .mix {
   &__header {
     margin-bottom: 20px;
-
-    @include mediaDesktop {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     &__title {
       color: white;
@@ -174,11 +186,16 @@ export default {
     &__actions {
       display: flex;
       justify-content: space-between;
-      padding-top: 20px;
 
       @include mediaDesktop {
-        padding-top: 0;
         justify-content: flex-end;
+      }
+    }
+
+    &__mix-desktop {
+      display: none;
+      @include mediaDesktop {
+        display: inline-block;
       }
     }
   }

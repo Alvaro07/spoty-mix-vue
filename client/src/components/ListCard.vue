@@ -77,6 +77,7 @@ export default {
 
   &__image {
     width: 100%;
+    border-radius: 3px;
   }
 
   &__title {

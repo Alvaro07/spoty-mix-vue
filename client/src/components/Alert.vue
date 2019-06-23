@@ -32,7 +32,7 @@ export default {
   text-align: center;
 
   background-color: var(--bg-color);
-  border: 1px solid $yellow;
+  border: 1px solid var(--border-color);
   padding: 15px;
   margin-bottom: 15px;
 
