@@ -14,9 +14,9 @@
     </div>
 
     <div class="c-track-item__actions">
-      <!-- <button class="c-track-item__actions__icon">
+      <button class="c-track-item__actions__icon" @click="playTrack">
         <font-awesome-icon icon="play"/>
-      </button>-->
+      </button>
 
       <button
         class="c-track-item__actions__icon"
@@ -69,6 +69,9 @@ export default {
         this.$store.commit("resetPlaylistsSelection");
         this.$router.history.push("dashboard");
       }
+    },
+    playTrack(){
+      this.$store.commit("playSongTrack", this.data);
     }
   }
 };

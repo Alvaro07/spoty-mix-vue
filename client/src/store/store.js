@@ -13,7 +13,12 @@ export default new Vuex.Store({
     },
     playlists: {},
     mixSelection: [],
-    tracks: []
+    tracks: [],
+    songTrack: {
+      audio: null,
+      name: null,
+      artist: null
+    }
   },
   mutations: {
     // Config and login/logout
@@ -47,6 +52,18 @@ export default new Vuex.Store({
     },
     deleteTrack: (state, idTrack) => {
       state.tracks = state.tracks.filter(e => e.id !== idTrack);
+    },
+
+    // Audio player
+    playSongTrack: (state, data) => {
+      state.songTrack = {
+        audio: data.preview_url,
+        name: data.name,
+        artist: data.artists[0].name
+      };
+    },
+    removeSongTrack: state => {
+      state.songTrack.audio = null;
     }
   }
 });

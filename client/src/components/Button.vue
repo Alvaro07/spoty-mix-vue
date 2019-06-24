@@ -55,6 +55,8 @@ export default {
     variantClass() {
       if (this.variant === "green") {
         return "c-button--green";
+      } else if (this.variant === "blue") {
+        return "c-button--blue";
       }
     }
   }
@@ -123,6 +125,16 @@ export default {
     &:hover {
       --bg-color: #{$darkGreen};
       --border-color: #{$darkGreen};
+    }
+  }
+
+  &--blue {
+    --bg-color: #{$blue};
+    --border-color: #{rgba($darkBlue, 0.3)};
+
+    &:hover {
+      --bg-color: #{$darkBlue};
+      --border-color: #{$darkBlue};
     }
   }
 
