@@ -21,7 +21,8 @@ import {
   faSlidersH,
   faTrash,
   faPause,
-  faStop
+  faStop,
+  faChevronDown
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -39,7 +40,8 @@ library.add(
   faTrash,
   faPause,
   faPlay,
-  faStop
+  faStop,
+  faChevronDown
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

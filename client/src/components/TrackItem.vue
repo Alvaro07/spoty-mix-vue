@@ -62,7 +62,6 @@ export default {
   data() {
     return {
       isPlaying: false
-      // uri: null
     };
   },
   computed: {
@@ -89,10 +88,13 @@ export default {
         this.$store.commit("resetPlaylistsSelection");
         this.$router.history.push("dashboard");
       }
+
+      if (this.data.preview_url === this.songTrack.audio) {
+        this.$store.commit("removeSongTrack");
+      }
     },
     playTrack() {
       this.$store.commit("playSongTrack", this.data);
-      // this.uri = this.data.preview_url;
       this.isPlaying = true;
     },
     stopTrack() {
@@ -100,13 +102,6 @@ export default {
       this.isPlaying = false;
     }
   }
-  // watch: {
-  //   uri(uri) {
-  //     if (uri !== this.songTrack.audio) {
-  //       this.isPlaying = false;
-  //     }
-  //   }
-  // }
 };
 </script>
 
@@ -114,7 +109,6 @@ export default {
 <style lang="scss">
 .c-track-item {
   --bg-color: #{$grey};
-  --poster-border-color: #{$lightGrey};
   --actions-bg-color: #1b1d20;
   --actions-border-color: #100e0e;
 
@@ -150,7 +144,7 @@ export default {
       img {
         max-width: 40px;
         transition: 0.1s all ease;
-        border: 2px solid var(--poster-border-color);
+        border: 2px solid $lightGrey;
       }
     }
 
