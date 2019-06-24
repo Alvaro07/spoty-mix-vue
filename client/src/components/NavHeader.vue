@@ -31,6 +31,10 @@ export default {
   top: 0;
   z-index: 1;
 
+  @include mediaDesktop{
+    position: relative;
+  }
+
   background-image: url("../assets/bg-app.gif");
   border-bottom: 5px solid $lightGrey;
 

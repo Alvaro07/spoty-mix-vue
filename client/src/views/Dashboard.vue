@@ -6,15 +6,13 @@
     <p v-if="error" class>{{ error }}</p>
 
     <main class="page-content__main" v-if="!loading">
-      <audio-player v-if="songTrack.audio"></audio-player>
-
       <div class="dashboard__header">
         <h3 class="dashboard__header__title">Select your playlists for the mix.</h3>
 
         <v-button
           text="Mix"
           icon="music"
-          ref="mixButtonDesktop"
+          ref="mixButton"
           @onClick="goToMix"
           variant="green"
           extraClass="dashboard__header__mix-desktop"
@@ -49,15 +47,8 @@
       </ul>
     </Modal>
 
-    <footer class="page-content__footer" v-if="!loading">
-      <v-button
-        text="Mix"
-        icon="music"
-        ref="mixButton"
-        @onClick="goToMix"
-        variant="green"
-        fullWidth
-      ></v-button>
+    <footer class="page-content__footer" v-if="!loading && songTrack.audio">
+      <audio-player></audio-player>
     </footer>
   </section>
 </template>
@@ -128,10 +119,8 @@ export default {
   updated() {
     if (this.mixSelection.length >= 2) {
       this.$refs.mixButton.activeButton();
-      this.$refs.mixButtonDesktop.activeButton();
     } else {
       this.$refs.mixButton.disabledButton();
-      this.$refs.mixButtonDesktop.disabledButton();
     }
   },
   methods: {
@@ -171,13 +160,6 @@ export default {
       color: white;
       font-weight: 700;
       padding-right: 10px;
-    }
-
-    &__mix-desktop {
-      display: none;
-      @include mediaDesktop {
-        display: inline-block;
-      }
     }
   }
 

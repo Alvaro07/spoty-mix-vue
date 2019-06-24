@@ -58,18 +58,15 @@ export default {
 
   &__footer {
     width: 100%;
-    padding: 15px;
-
     position: fixed;
     bottom: 0;
     left: 0;
-    z-index: 1;
+    z-index: 3;
+    background: $grey;
+    border-top: 2px inset $pink;
 
-    background: $darkGrey;
-    border-top: 2px solid $grey;
-
-    @include mediaDesktop {
-      display: none;
+    & + .page-content__main {
+      --main-padding: 30px 20px 100px 20px;
     }
   }
 }

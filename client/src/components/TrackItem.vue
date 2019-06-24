@@ -14,8 +14,22 @@
     </div>
 
     <div class="c-track-item__actions">
-      <button class="c-track-item__actions__icon" @click="playTrack">
+      <button
+        class="c-track-item__actions__icon"
+        :class="{'is-disabled': !this.data.preview_url}"
+        @click="playTrack"
+        v-if="!isPlaying || this.data.preview_url !== this.songTrack.audio"
+      >
         <font-awesome-icon icon="play"/>
+      </button>
+
+      <button
+        class="c-track-item__actions__icon"
+        :class="{'is-disabled': !this.data.preview_url}"
+        @click="stopTrack"
+        v-if="isPlaying && this.data.preview_url === this.songTrack.audio"
+      >
+        <font-awesome-icon icon="stop"/>
       </button>
 
       <button
@@ -45,6 +59,12 @@ export default {
       required: false
     }
   },
+  data() {
+    return {
+      isPlaying: false
+      // uri: null
+    };
+  },
   computed: {
     poster() {
       return this.data.album.images[0].url;
@@ -58,7 +78,7 @@ export default {
     album() {
       return this.data.album.name;
     },
-    ...mapState(["tracks"])
+    ...mapState(["tracks", "songTrack"])
   },
   methods: {
     deleteThisTrack(e) {
@@ -70,12 +90,27 @@ export default {
         this.$router.history.push("dashboard");
       }
     },
-    playTrack(){
+    playTrack() {
       this.$store.commit("playSongTrack", this.data);
+      // this.uri = this.data.preview_url;
+      this.isPlaying = true;
+    },
+    stopTrack() {
+      this.$store.commit("removeSongTrack");
+      this.isPlaying = false;
     }
   }
+  // watch: {
+  //   uri(uri) {
+  //     if (uri !== this.songTrack.audio) {
+  //       this.isPlaying = false;
+  //     }
+  //   }
+  // }
 };
 </script>
+
+
 <style lang="scss">
 .c-track-item {
   --bg-color: #{$grey};
@@ -84,8 +119,6 @@ export default {
   --actions-border-color: #100e0e;
 
   display: flex;
-
-  cursor: pointer;
   transition: 0.1s all ease;
 
   &:not(:first-child) {
@@ -107,12 +140,6 @@ export default {
     color: white;
     border-right: 1px solid $lightGrey;
     background-color: var(--bg-color);
-
-    &:hover {
-      --bg-color: #{$darkGrey};
-      --poster-border-color: #{$pink};
-      --actions-border-color: #{$darkGrey};
-    }
 
     &__poster {
       display: flex;
@@ -176,13 +203,21 @@ export default {
         --actions-bg-color: #{$pink};
       }
 
+      &.is-disabled {
+        --actions-bg-color: #{$lightGrey};
+        pointer-events: none;
+        cursor: default;
+
+        svg {
+          opacity: 0.2;
+        }
+      }
+
       &:hover {
         @media (hover: hover) {
           --actions-bg-color: #{$pink};
         }
       }
-
-      
     }
   }
 }

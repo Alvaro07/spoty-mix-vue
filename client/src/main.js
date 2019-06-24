@@ -19,11 +19,28 @@ import {
   faReply,
   faVolumeUp,
   faSlidersH,
-  faTrash
+  faTrash,
+  faPause,
+  faStop
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faSignOutAlt, faNotEqual, faHandPointer, faMusic, faEye, faTimesCircle, faPlay, faReply, faVolumeUp, faSlidersH, faTrash);
+library.add(
+  faSignOutAlt,
+  faNotEqual,
+  faHandPointer,
+  faMusic,
+  faEye,
+  faTimesCircle,
+  faPlay,
+  faReply,
+  faVolumeUp,
+  faSlidersH,
+  faTrash,
+  faPause,
+  faPlay,
+  faStop
+);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.use(VueSpotify, new Spotify());
