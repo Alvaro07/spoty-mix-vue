@@ -113,7 +113,7 @@ export default {
 
       setTimeout(() => {
         this.alert.isVisible = false;
-      }, 3000);
+      }, 6000);
     }
   },
   updated() {
@@ -138,6 +138,7 @@ export default {
       this.modal.name = null;
       this.prePlaylist = { name: null, tracks: null };
       document.getElementsByTagName("body")[0].classList.remove("is-hide");
+      this.$store.commit("removeSongTrack");
     },
     goToMix() {
       this.$router.history.push("mix");

@@ -26,7 +26,7 @@ export default {
   methods: {
     closeModal() {
       this.$emit("close");
-      this.$store.commit("removeSongTrack");
+      
     }
   }
 };

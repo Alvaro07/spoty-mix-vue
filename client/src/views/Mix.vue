@@ -144,6 +144,7 @@ export default {
         this.closeModal();
         this.$router.history.push({ name: "dashboard", params: { mixCreated: true, name: this.mixName } });
         this.$store.commit("resetPlaylistsSelection");
+        this.$store.commit("removeSongTrack");
       });
     }
   },
