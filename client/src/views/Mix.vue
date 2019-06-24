@@ -5,6 +5,10 @@
     <Loader v-if="loading"></Loader>
     <p v-if="error">{{ error }}</p>
 
+    <footer class="page-content__footer" v-if="!loading && songTrack.audio">
+      <audio-player v-if="songTrack.audio"></audio-player>
+    </footer>
+
     <main class="page-content__main" v-if="!this.loading">
       <div class="mix__header">
         <div class="mix__header__title">
@@ -14,13 +18,12 @@
 
         <div class="mix__header__actions">
           <v-button text="Return" icon="reply" @onClick="goToDashboard"></v-button>
-
           <v-button
             text="Create playlist"
             icon="volume-up"
             variant="green"
             @onClick="() => openCreateModal('modal-create')"
-            ref="createButtonDesktop"
+            ref="createButton"
             extraClass="mix__header__mix-desktop margin-left-10"
           ></v-button>
         </div>
@@ -47,6 +50,7 @@
               @onKeyUp="e => checkCreateMixButton(e)"
               extraClass="margin-right-20"
             ></InputField>
+
             <v-button
               text="Mixing!"
               icon="sliders-h"
@@ -60,19 +64,10 @@
         </div>
       </Modal>
     </main>
-
-    <footer class="page-content__footer" v-if="!loading">
-      <v-button
-        text="Create playlist"
-        icon="volume-up"
-        variant="green"
-        @onClick="() => openCreateModal('modal-create')"
-        ref="createButton"
-        fullWidth
-      ></v-button>
-    </footer>
   </section>
 </template>
+
+
 <script>
 import Button from "../components/Button";
 import NavHeader from "../components/NavHeader";
@@ -81,6 +76,7 @@ import TrackItem from "../components/TrackItem";
 import InputField from "../components/InputField";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
+import AudioPlayer from "../components/AudioPlayer";
 import { getPlayLists, getPlaylistTracks, createMixList, addTracksToMixList } from "../api/playlists";
 import { mapState } from "vuex";
 
@@ -90,6 +86,7 @@ export default {
     "v-header": NavHeader,
     "v-button": Button,
     "track-item": TrackItem,
+    "audio-player": AudioPlayer,
     Modal,
     InputField,
     Alert,
@@ -118,10 +115,8 @@ export default {
   updated() {
     if (this.tracks.length >= 100) {
       this.$refs.createButton.disabledButton();
-      this.$refs.createButtonDesktop.disabledButton();
     } else {
       if (this.$refs.createButton !== undefined) this.$refs.createButton.activeButton();
-      if (this.$refs.createButtonDesktop !== undefined) this.$refs.createButtonDesktop.activeButton();
     }
   },
   methods: {
@@ -149,19 +144,25 @@ export default {
         this.closeModal();
         this.$router.history.push({ name: "dashboard", params: { mixCreated: true, name: this.mixName } });
         this.$store.commit("resetPlaylistsSelection");
+        this.$store.commit("removeSongTrack");
       });
     }
   },
-  computed: mapState(["mixSelection", "config", "playlists", "tracks"])
+  computed: mapState(["mixSelection", "config", "playlists", "tracks", "songTrack"])
 };
 </script>
+
+
 <style lang="scss">
 .mix {
   &__header {
     margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+
+    @include mediaDesktop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
     &__title {
       color: white;
@@ -181,16 +182,10 @@ export default {
     &__actions {
       display: flex;
       justify-content: space-between;
+      margin-top: 20px;
 
       @include mediaDesktop {
-        justify-content: flex-end;
-      }
-    }
-
-    &__mix-desktop {
-      display: none;
-      @include mediaDesktop {
-        display: inline-block;
+        margin-top: 0;
       }
     }
   }

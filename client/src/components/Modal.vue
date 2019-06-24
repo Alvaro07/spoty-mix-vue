@@ -17,6 +17,8 @@
     </div>
   </transition>
 </template>
+
+
 <script>
 export default {
   name: "modal",
@@ -24,10 +26,13 @@ export default {
   methods: {
     closeModal() {
       this.$emit("close");
+      
     }
   }
 };
 </script>
+
+
 <style lang="scss">
 .c-modal {
   display: flex;
@@ -49,7 +54,7 @@ export default {
     position: relative;
     width: 100%;
     max-width: 640px;
-    max-height: 80vh;
+    max-height: 70vh;
     display: flex;
     flex-direction: column;
 
@@ -86,17 +91,17 @@ export default {
 
   &__content {
     overflow: auto;
-    border-bottom: 3px solid $darkPink;
+    border-bottom: 3px solid black;
   }
 }
 
 .modal-fade-enter,
-  .modal-fade-leave-active {
-    opacity: 0;
-  }
+.modal-fade-leave-active {
+  opacity: 0;
+}
 
-  .modal-fade-enter-active,
-  .modal-fade-leave-active {
-    transition: opacity .3s ease
-  }
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
 </style>

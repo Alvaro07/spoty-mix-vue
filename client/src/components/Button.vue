@@ -63,7 +63,6 @@ export default {
 };
 </script>
 
-
 <style lang="scss">
 .c-button {
   --bg-color: #{$pink};

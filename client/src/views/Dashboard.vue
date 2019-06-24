@@ -6,15 +6,13 @@
     <p v-if="error" class>{{ error }}</p>
 
     <main class="page-content__main" v-if="!loading">
-      <audio-player v-if="songTrack.audio"></audio-player>
-
       <div class="dashboard__header">
         <h3 class="dashboard__header__title">Select your playlists for the mix.</h3>
 
         <v-button
           text="Mix"
           icon="music"
-          ref="mixButtonDesktop"
+          ref="mixButton"
           @onClick="goToMix"
           variant="green"
           extraClass="dashboard__header__mix-desktop"
@@ -49,15 +47,8 @@
       </ul>
     </Modal>
 
-    <footer class="page-content__footer" v-if="!loading">
-      <v-button
-        text="Mix"
-        icon="music"
-        ref="mixButton"
-        @onClick="goToMix"
-        variant="green"
-        fullWidth
-      ></v-button>
+    <footer class="page-content__footer" v-if="!loading && songTrack.audio">
+      <audio-player></audio-player>
     </footer>
   </section>
 </template>
@@ -122,16 +113,14 @@ export default {
 
       setTimeout(() => {
         this.alert.isVisible = false;
-      }, 3000);
+      }, 6000);
     }
   },
   updated() {
     if (this.mixSelection.length >= 2) {
       this.$refs.mixButton.activeButton();
-      this.$refs.mixButtonDesktop.activeButton();
     } else {
       this.$refs.mixButton.disabledButton();
-      this.$refs.mixButtonDesktop.disabledButton();
     }
   },
   methods: {
@@ -149,6 +138,7 @@ export default {
       this.modal.name = null;
       this.prePlaylist = { name: null, tracks: null };
       document.getElementsByTagName("body")[0].classList.remove("is-hide");
+      this.$store.commit("removeSongTrack");
     },
     goToMix() {
       this.$router.history.push("mix");
@@ -171,13 +161,6 @@ export default {
       color: white;
       font-weight: 700;
       padding-right: 10px;
-    }
-
-    &__mix-desktop {
-      display: none;
-      @include mediaDesktop {
-        display: inline-block;
-      }
     }
   }
 
