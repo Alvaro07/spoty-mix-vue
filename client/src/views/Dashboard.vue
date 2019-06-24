@@ -6,6 +6,8 @@
     <p v-if="error" class>{{ error }}</p>
 
     <main class="page-content__main" v-if="!loading">
+      <audio-player v-if="songTrack.audio"></audio-player>
+
       <div class="dashboard__header">
         <h3 class="dashboard__header__title">Select your playlists for the mix.</h3>
 
@@ -68,6 +70,7 @@ import Modal from "../components/Modal";
 import TrackItem from "../components/TrackItem";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
+import AudioPlayer from "../components/AudioPlayer";
 import { getPlayLists, getPlaylistTracks } from "../api/playlists";
 import { mapState } from "vuex";
 
@@ -78,6 +81,7 @@ export default {
     "list-card": ListCard,
     "v-button": Button,
     "track-item": TrackItem,
+    "audio-player": AudioPlayer,
     Modal,
     Alert,
     Loader
@@ -150,7 +154,7 @@ export default {
       this.$router.history.push("mix");
     }
   },
-  computed: mapState(["mixSelection", "config", "playlists"])
+  computed: mapState(["mixSelection", "config", "playlists", "songTrack"])
 };
 </script>
 
@@ -190,6 +194,5 @@ export default {
       grid-template-columns: repeat(6, 1fr);
     }
   }
-
 }
 </style>

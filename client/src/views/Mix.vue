@@ -13,12 +13,7 @@
         </div>
 
         <div class="mix__header__actions">
-          <v-button
-            text="Return"
-            icon="reply"
-            extraClass="margin-right-10"
-            @onClick="goToDashboard"
-          ></v-button>
+          <v-button text="Return" icon="reply" @onClick="goToDashboard"></v-button>
 
           <v-button
             text="Create playlist"
@@ -26,7 +21,7 @@
             variant="green"
             @onClick="() => openCreateModal('modal-create')"
             ref="createButtonDesktop"
-            extraClass="mix__header__mix-desktop"
+            extraClass="mix__header__mix-desktop margin-left-10"
           ></v-button>
         </div>
       </div>
