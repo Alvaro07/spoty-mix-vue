@@ -5,6 +5,8 @@
     <button class="list-card__preview" @click.stop="previewClick">Preview</button>
   </li>
 </template>
+
+
 <script>
 import Button from "../components/Button";
 import { mapState } from "vuex";
@@ -53,6 +55,8 @@ export default {
   }
 };
 </script>
+
+
 <style lang="scss">
 .list-card {
   display: flex;
@@ -75,10 +79,18 @@ export default {
     }
   }
 
+  /**
+  * Image card
+  */
+
   &__image {
     width: 100%;
     border-radius: 3px;
   }
+
+  /**
+  * Title card
+  */
 
   &__title {
     flex: 1;
@@ -87,6 +99,10 @@ export default {
     padding: 10px 0;
     word-break: break-word;
   }
+
+  /**
+  * Preview button
+  */
 
   &__preview {
     display: flex;

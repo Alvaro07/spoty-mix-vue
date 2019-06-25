@@ -4,12 +4,20 @@
     <div class="c-loader__text">Loading ...</div>
   </div>
 </template>
+
+
 <script>
 export default {
   name: "loader"
 };
 </script>
+
+
 <style lang="scss">
+/**
+  * Loader wrap
+  */
+
 .c-loader-wrap {
   width: 100%;
   display: block;
@@ -19,6 +27,10 @@ export default {
   flex-direction: column;
   padding: 100px 0;
 }
+
+/**
+  * Loader component
+  */
 
 .c-loader {
   display: block;
@@ -57,14 +69,22 @@ export default {
     -webkit-animation: spin 1.5s linear infinite;
     animation: spin 1.75s linear infinite;
   }
+
+  /**
+  * Loader text 'loading'
+  */
+
+  &__text {
+    color: white;
+    font-weight: 500;
+    font-size: 1.6rem;
+    padding-top: 25px;
+  }
 }
 
-.c-loader__text {
-  color: white;
-  font-weight: 500;
-  font-size: 1.6rem;
-  padding-top: 25px;
-}
+/**
+  * Animation
+  */
 
 @-webkit-keyframes spin {
   from {

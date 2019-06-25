@@ -9,7 +9,8 @@
       <span>mixer</span> playlist
     </h2>
     <p class="login__description">
-      Access with your spotify user and <span class="bold">mix your playlist</span> easily, choose your two ore more
+      Access with your spotify user and
+      <span class="bold">mix your playlist</span> easily, choose your two ore more
       favorite lists and mix them in one click!
     </p>
     <!-- <v-button
@@ -17,7 +18,7 @@
       type="buttonLink"
       href="https://spotymix-auth-server.herokuapp.com/login"
       big
-    ></v-button> -->
+    ></v-button>-->
 
     <v-button
       text="Login with your Spotify"
@@ -25,8 +26,6 @@
       href="http://localhost:8888/login"
       big
     ></v-button>
-
-
   </div>
 </template>
 
@@ -73,10 +72,14 @@ export default {
   background-image: url("../assets/bg-app.gif");
   text-align: center;
 
+  /*
+  * Login logo
+  */
+
   &__logo {
     --logo-font-size: 4.5rem;
     --logo-icon-size: 4.8rem;
-    --logo-margin: 40px; 
+    --logo-margin: 40px;
 
     display: flex;
     align-items: center;
@@ -95,13 +98,15 @@ export default {
       --logo-margin: 30px;
     }
 
-
     @include mediaDesktop {
       --logo-font-size: 5rem;
       --logo-icon-size: 5.5rem;
-      
     }
   }
+
+  /*
+  * Eslogan text
+  */
 
   &__slogan {
     --slogan-size: 3.4rem;
@@ -127,6 +132,10 @@ export default {
       color: $pink;
     }
   }
+
+  /*
+  * App description
+  */
 
   &__description {
     --desc-size: 1.6rem;
