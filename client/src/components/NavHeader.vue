@@ -4,8 +4,8 @@
       <h1 class="m-header__logo">
         <font-awesome-icon icon="not-equal" class="m-header__logo__icon"/>SpotyMix
       </h1>
-      
-      <v-button icon="sign-out-alt" text="Sign out" @onClick="logOut" ></v-button>
+
+      <v-button icon="sign-out-alt" text="Sign out" @onClick="logOut"></v-button>
     </div>
   </header>
 </template>
@@ -30,13 +30,16 @@ export default {
   position: sticky;
   top: 0;
   z-index: 1;
+  background-image: url("../assets/bg-app.gif");
+  border-bottom: 5px solid $lightGrey;
 
-  @include mediaDesktop{
+  @include mediaDesktop {
     position: relative;
   }
 
-  background-image: url("../assets/bg-app.gif");
-  border-bottom: 5px solid $lightGrey;
+  /**
+  * Header wrap
+  */
 
   &__wrap {
     display: flex;
@@ -47,6 +50,10 @@ export default {
     padding: 15px;
     margin: 0 auto;
   }
+
+  /**
+  * Logo
+  */
 
   &__logo {
     display: flex;

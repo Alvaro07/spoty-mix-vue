@@ -94,6 +94,10 @@ export default {
   margin: 0 auto;
   padding: 10px 20px;
 
+  /**
+  * Controls zone
+  */
+
   &__controls {
     display: flex;
     justify-content: space-between;
@@ -125,11 +129,22 @@ export default {
     }
   }
 
+  /**
+  * Title
+  */
+
   &__title {
     color: white;
     font-weight: 500;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
+
+  /**
+  * Icon close
+  */
 
   &__close {
     --icon-color: white;

@@ -155,6 +155,10 @@ export default {
 
 <style lang="scss">
 .mix {
+  /*
+  * Header mix
+  */
+
   &__header {
     margin-bottom: 20px;
 
@@ -190,10 +194,18 @@ export default {
     }
   }
 
+  /*
+    * Header list container
+    */
+
   &__list {
     border-top: 3px solid $darkPink;
     border-bottom: 3px solid black;
   }
+
+  /*
+    * Create modal styles
+    */
 
   &__modal-create {
     padding: 30px 20px 20px 20px;

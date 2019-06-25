@@ -160,9 +160,13 @@ export default {
       font-size: 2.6rem;
       color: white;
       font-weight: 700;
-      padding-right: 10px;
+      padding-right: 20px;
     }
   }
+
+  /**
+  * Dashboard list container
+  */
 
   &__list {
     display: grid;

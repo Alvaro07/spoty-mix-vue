@@ -26,7 +26,6 @@ export default {
   methods: {
     closeModal() {
       this.$emit("close");
-      
     }
   }
 };
@@ -49,6 +48,10 @@ export default {
   z-index: 2;
 
   background-color: rgba($darkGrey, 0.8);
+
+  /**
+  * Modal container wrap
+  */
 
   &__wrap {
     position: relative;
@@ -81,6 +84,10 @@ export default {
     }
   }
 
+  /**
+  * Possible header
+  */
+
   &__header {
     padding: 15px 20px;
     &__title {
@@ -89,11 +96,19 @@ export default {
     }
   }
 
+  /**
+  * Content
+  */
+
   &__content {
     overflow: auto;
     border-bottom: 3px solid black;
   }
 }
+
+/**
+  * Modal animation
+  */
 
 .modal-fade-enter,
 .modal-fade-leave-active {

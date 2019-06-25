@@ -123,7 +123,7 @@ export default {
   }
 
   /*
-  * Content container 
+  * Track content 
   */
 
   &__cont {

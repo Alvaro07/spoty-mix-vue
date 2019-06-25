@@ -36,6 +36,10 @@ export default {
   padding: 15px;
   margin-bottom: 15px;
 
+  /**
+  * Modifiers
+  */
+  
   &--green {
     --bg-color: #{rgba($green, 0.3)};
     --border-color: #{$green};
