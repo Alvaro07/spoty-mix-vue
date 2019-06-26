@@ -31,17 +31,13 @@ export default {
     toggleActive() {
       this.isSelected = !this.isSelected;
 
-      if (this.isSelected) {
-        this.$store.commit("addListToMix", this.id);
-      } else {
-        this.$store.commit("removeListToMix", this.id);
-      }
+      /**
+       * When is selected is added to mixList array, if not, is removed.
+       * If the array mixList length is more than two, the mix button is activated.
+       */
 
-      if (this.mixSelection.length >= 2) {
-        this.$parent.$refs.mixButton.activeButton();
-      } else {
-        this.$parent.$refs.mixButton.disabledButton();
-      }
+      this.isSelected ? this.$store.commit("addListToMix", this.id) : this.$store.commit("removeListToMix", this.id);
+      this.mixSelection.length >= 2 ? this.$parent.$refs.mixButton.activeButton() : this.$parent.$refs.mixButton.disabledButton();
     },
     previewClick() {
       this.$emit("openPreview");
