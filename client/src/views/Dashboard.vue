@@ -117,11 +117,7 @@ export default {
     }
   },
   updated() {
-    if (this.mixSelection.length >= 2) {
-      this.$refs.mixButton.activeButton();
-    } else {
-      this.$refs.mixButton.disabledButton();
-    }
+    this.mixSelection.length >= 2 ? this.$refs.mixButton.activeButton() : this.$refs.mixButton.disabledButton();
   },
   methods: {
     openModalPreview(modal, item) {

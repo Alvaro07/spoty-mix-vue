@@ -3,6 +3,8 @@
     <slot></slot>
   </div>
 </template>
+
+
 <script>
 export default {
   name: "alert",
@@ -21,6 +23,8 @@ export default {
   }
 };
 </script>
+
+
 <style lang="scss">
 .c-alert {
   --bg-color: #{rgba($yellow, 0.3)};

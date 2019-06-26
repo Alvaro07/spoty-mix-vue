@@ -54,7 +54,6 @@ export default {
     "v-button": Button
   },
   computed: mapState(["songTrack"]),
-
   methods: {
     play() {
       this.$refs.audioPlayer.play();
@@ -101,10 +100,6 @@ export default {
   &__controls {
     display: flex;
     justify-content: space-between;
-
-    &__range {
-      flex: 1;
-    }
 
     &__icon {
       padding: 10px;
@@ -184,6 +179,7 @@ export default {
   --thumb-color: #{$pink};
   --track-color: white;
 
+  flex: 1;
   -webkit-appearance: none;
   vertical-align: middle;
   outline: none;
@@ -240,6 +236,8 @@ export default {
     border: none;
     background: none;
     background-color: var(--thumb-color);
+    margin-top: -7px;
+    left: 0;
   }
 
   &:active::-moz-range-thumb {
@@ -253,6 +251,7 @@ export default {
     height: var(--circle-size);
     width: var(--circle-size);
     margin-top: -7px;
+    left: 0;
   }
 
   &[disabled]::-webkit-slider-thumb {
@@ -269,6 +268,8 @@ export default {
     height: var(--circle-size);
     width: var(--circle-size);
     border: none;
+    margin-top: -7px;
+    left: 0;
   }
 
   &:active::-ms-thumb {
