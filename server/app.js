@@ -12,11 +12,11 @@ var request = require("request"); // "Request" library
 var cors = require("cors");
 var querystring = require("querystring");
 var cookieParser = require("cookie-parser");
-var config = require("./config");
+// var config = require("./config");
 
-var client_id = config.client_id; // Your client id
-var client_secret = config.client_secret; // Your secret
-var redirect_uri = "http://localhost:8888/callback"; // Your redirect uri
+var client_id = '4f8cd35efffa4151bdfa0da6d2683e4b'; // Your client id
+var client_secret = '3b75dd909542429486733cb51fbf3dc9'; // Your secret
+var redirect_uri = "https://spotymix-auth-server.herokuapp.com/callback"; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
