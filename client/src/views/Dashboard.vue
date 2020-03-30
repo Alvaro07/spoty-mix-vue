@@ -99,7 +99,7 @@ export default {
     getPlayLists(this, this.config.user_id, this.config.access_token)
       .then(data => {
         this.loading = false;
-        this.$store.commit("addPlaylists", data);
+        this.$store.commit("addPlaylists", data.filter(e => e.tracks.total > 0));
       })
       .catch(error => {
         this.loading = false;
