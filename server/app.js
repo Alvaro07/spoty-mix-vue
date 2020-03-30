@@ -110,7 +110,7 @@ app.get("/callback", function(req, res) {
 
           // we can also pass the token to the browser to make requests from there
           res.redirect(
-            "http://localhost:8080/spoty-mix-vue/#" +
+            "https://alvaro07.github.io/spoty-mix-vue/#" +
               querystring.stringify({
                 access_token: access_token,
                 refresh_token: refresh_token,
