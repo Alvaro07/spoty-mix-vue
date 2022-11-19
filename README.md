@@ -1,6 +1,6 @@
 # Spoty-mix Vue
 
-Your spotify list mixer app, developed with Vue and Vuex
+Your spotify list mixer app, developed with Vue 2 and Vuex
 
 Access with your spotify user and mix your playlist easily, choose your two ore more favorite lists and mix them in one click!
 
